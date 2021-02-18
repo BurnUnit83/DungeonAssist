@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace SycrusAssist
+namespace DungeonAssist
 {
-    public partial class SycrusAssistSettings : Form
+    public partial class DungeonAssistSettings : Form
     {
         private Dictionary<uint, string> foodDict;
 
-        public SycrusAssistSettings()
+        public DungeonAssistSettings()
         {
             foodDict = new Dictionary<uint, string>();
             InitializeComponent();

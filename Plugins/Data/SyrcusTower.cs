@@ -10,7 +10,7 @@ using System.Linq;
 using ff14bot.Helpers;
 using System.Windows.Media;
 
-namespace SycrusAssist
+namespace DungeonAssist
 {
     public class SyrcusTower
     {
@@ -37,10 +37,10 @@ namespace SycrusAssist
             HashSet<uint> CurtainCall = new HashSet<uint>() { 2441, 12461 };
             if (CurtainCall.IsCasting())
             {
-                await Coroutine.Sleep(2000);
+                await Coroutine.Sleep(4000);
 				Stopwatch sw = new Stopwatch();
                 sw.Start();
-                while (sw.ElapsedMilliseconds < 8000)
+                while (sw.ElapsedMilliseconds < 12000)
                 {
                     Core.Me.ClearTarget();
 					//Logging.Write(Colors.Aquamarine, $"Curtain Call Handling Going to Ice");					

@@ -16,31 +16,31 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using TreeSharp;
 
-namespace SycrusAssist
+namespace DungeonAssist
 {
-    public class SycrusAssist : BotPlugin
+    public class DungeonAssist : BotPlugin
     {
         private Composite _coroutine;
-        private SycrusAssistSettings _settingsForm;
+        private DungeonAssistSettings _settingsForm;
 		
         //private static NamedPipeClientStream pipe;
 
         private Composite deathCoroutine2;
         private static uint _buff = 48;
 
-        public override string Author { get { return "NeonNeo, Kayla (For Death Logic)"; } }
+        public override string Author { get { return "NeonNeo, Kayla, Antony, DomesticWarlord"; } }
 #if RB_CN
         public override string Name => "亲信战友";
 #else
-        public override string Name => "SycrusAssist";
+        public override string Name => "DungeonAssist";
 	
 	
 #endif
 
 		//public override string NameKAY { get; } = name;
-        public override Version Version { get { return new Version(1, 2, 0); } }
+        public override Version Version { get { return new Version(1, 1, 0); } }
 
-        private bool CanSycrusAssist() => Array.IndexOf(new int[] { 102, 372 }, WorldManager.ZoneId) >= 0;
+        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372 }, WorldManager.ZoneId) >= 0;
         public override void OnInitialize()
         {
             if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
@@ -55,7 +55,7 @@ namespace SycrusAssist
                 if (_plugin.Enabled == false) { _plugin.Enabled = true; }
             }
 
-            _coroutine = new Decorator(c => CanSycrusAssist(), new ActionRunCoroutine(r => RunSycrusAssist()));
+            _coroutine = new Decorator(c => CanDungeonAssist(), new ActionRunCoroutine(r => RunDungeonAssist()));
 			//deathCoroutine2 = new ActionRunCoroutine(ctx => HandleDeath2());
         }
 
@@ -82,13 +82,13 @@ namespace SycrusAssist
 
         private void AddHooks()
         {
-            Logging.Write(Colors.Aquamarine, "Adding SycrusAssist Hook");
+            Logging.Write(Colors.Aquamarine, "Adding DungeonAssist Hook");
             TreeHooks.Instance.AddHook("TreeStart", _coroutine);
         }
 
         private void RemoveHooks()
         {
-            Logging.Write(Colors.Aquamarine, "Removing SycrusAssist Hook");
+            Logging.Write(Colors.Aquamarine, "Removing DungeonAssist Hook");
             TreeHooks.Instance.RemoveHook("TreeStart", _coroutine);
         }
 
@@ -107,7 +107,7 @@ namespace SycrusAssist
                 Logging.Write(Colors.Aquamarine, $"Player has died.");
                 
 				await Coroutine.Sleep(5000);
-				Logging.Write(Colors.Aquamarine, $"Handling Death in Sycrus Assist.");
+				Logging.Write(Colors.Aquamarine, $"Handling Death in Dungeon Assist.");
 
 				await Coroutine.Wait(20000, () => ClientGameUiRevive.ReviveState == ReviveState.Dead);
 
@@ -141,7 +141,7 @@ namespace SycrusAssist
 
             return false;
         }
-        private async Task<bool> RunSycrusAssist()
+        private async Task<bool> RunDungeonAssist()
         {
             if (!Core.Me.InCombat && ActionManager.IsSprintReady && MovementManager.IsMoving)
             {
@@ -178,7 +178,7 @@ namespace SycrusAssist
         private static Settings _instance;
         public static Settings Instance { get { return _instance ?? (_instance = new Settings()); ; } }
 
-        public Settings() : base(Path.Combine(CharacterSettingsDirectory, "SycrusAssist.json")) { }
+        public Settings() : base(Path.Combine(CharacterSettingsDirectory, "DungeonAssist.json")) { }
 
         [Setting]
         public uint Id { get; set; }

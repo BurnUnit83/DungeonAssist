@@ -5,7 +5,7 @@ using ff14bot.Objects;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SycrusAssist
+namespace DungeonAssist
 {
     public static class Helpers
     {

@@ -8,7 +8,7 @@
 		<CodeChunk Name="LogSpells">
 			<![CDATA[
 				var outputText = "";
-				var outputFilePath = @"C:\Rebornbuddy\Plugins\RBSycrusAssist\trunk\Plugins\SycrusAssist\Data\GETSPELLS.txt";
+				var outputFilePath = @"C:\Rebornbuddy\Plugins\RBDungeonAssist\trunk\Plugins\DungeonAssist\Data\GETSPELLS.txt";
 
 				while (WorldManager.ZoneId == 372)
 				{

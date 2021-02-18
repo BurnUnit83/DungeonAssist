@@ -1,6 +1,6 @@
-﻿namespace SycrusAssist
+﻿namespace DungeonAssist
 {
-    partial class SycrusAssistSettings
+    partial class DungeonAssistSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SycrusAssistSettings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DungeonAssistSettings));
             this.foodDropBox = new System.Windows.Forms.ComboBox();
             this.foodLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -46,13 +46,13 @@
             resources.ApplyResources(this.foodLabel, "foodLabel");
             this.foodLabel.Name = "foodLabel";
             // 
-            // SycrusAssistSettings
+            // DungeonAssistSettings
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.foodLabel);
             this.Controls.Add(this.foodDropBox);
-            this.Name = "SycrusAssistSettings";
+            this.Name = "DungeonAssistSettings";
             this.ResumeLayout(false);
             this.PerformLayout();
 

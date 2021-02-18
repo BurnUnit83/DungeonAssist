@@ -176,7 +176,7 @@
 	<CodeChunks>
 	 <CodeChunk name="PluginLoad">
       <![CDATA[
-        var Plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SycrusAssist");
+        var Plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist");
         var Plugin2 = PluginManager.Plugins.Where(p => p.Plugin.Name == "Osiris");
 		var Plugin3 = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep");
 		
@@ -190,8 +190,8 @@
         var text6 = string.Empty;
 		
 		
-		text1 = "Plug-In Sycrus Assist is installed and enabled";
-		text2 = "You Need the Sycrus Assist Plug-In to Operate this Profile";
+		text1 = "Plug-In Dungeon Assist is installed and enabled";
+		text2 = "You Need the Dungeon Assist Plug-In to Operate this Profile";
 		text3 = "Plug-In Osiris  is installed and enabled";
 		text4 = "You Need the Osiris Plug-In to Operate this Profile";
 		text5 = "Plug-In SideStep  is installed and enabled";
@@ -202,7 +202,7 @@
 				
 				if (Plugin != null)
 				{
-					PluginManager.SetEnabledPlugins("SycrusAssist");
+					PluginManager.SetEnabledPlugins("DungeonAssist");
 					Core.OverlayManager.AddToast(() => text1, TimeSpan.FromMilliseconds(5000), System.Windows.Media.Color.FromRgb(29,213,226), System.Windows.Media.Color.FromRgb(13,106,175), new System.Windows.Media.FontFamily("Gautami"));
 					
 				}
@@ -259,11 +259,11 @@
 					var text4 = string.Empty;
         
 				#if RB_CN
-						text3 = "近战如果打不到BOSS,另一个DPS带琳,添加吃食物,在SycrusAssist设置里设置食物";
-						text4 = "你必须在Plugins文件夹里存在SycrusAssist/亲信战友的插件";
+						text3 = "近战如果打不到BOSS,另一个DPS带琳,添加吃食物,在DungeonAssist设置里设置食物";
+						text4 = "你必须在Plugins文件夹里存在DungeonAssist/亲信战友的插件";
 				#else
 						text3 = "Curtain Call Time!";
-						text4 = "This profile will not work without the SycrusAssist plugin being installed, and enabled.";
+						text4 = "This profile will not work without the DungeonAssist plugin being installed, and enabled.";
 				#endif
 
 						Core.OverlayManager.AddToast(() => text3, TimeSpan.FromMilliseconds(5000), System.Windows.Media.Color.FromRgb(29,213,226), System.Windows.Media.Color.FromRgb(13,106,175), new System.Windows.Media.FontFamily("Gautami"));

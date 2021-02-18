@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace SycrusAssist
+namespace DungeonAssist
 {
     public static class Extensions
     {
