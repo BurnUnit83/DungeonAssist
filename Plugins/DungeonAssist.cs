@@ -28,7 +28,7 @@ namespace DungeonAssist
         private Composite deathCoroutine2;
         private static uint _buff = 48;
 
-        public override string Author { get { return "NeonNeo, Kayla, Antony, DomesticWarlord"; } }
+        public override string Author { get { return "NeonNeo, Kayla, DomesticWarlord, Antony "; } }
 #if RB_CN
         public override string Name => "亲信战友";
 #else
@@ -38,7 +38,7 @@ namespace DungeonAssist
 #endif
 
 		//public override string NameKAY { get; } = name;
-        public override Version Version { get { return new Version(1, 1, 0); } }
+        public override Version Version { get { return new Version(1, 1, 1); } }
 
         private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372 }, WorldManager.ZoneId) >= 0;
         public override void OnInitialize()
@@ -51,8 +51,8 @@ namespace DungeonAssist
 			
 			if (PluginManager.Plugins.Where(p => p.Plugin.Name == "Osiris" ).Any())
             {
-                var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "Osiris").FirstOrDefault();
-                if (_plugin.Enabled == false) { _plugin.Enabled = true; }
+                var _plugin2 = PluginManager.Plugins.Where(p => p.Plugin.Name == "Osiris").FirstOrDefault();
+                if (_plugin2.Enabled == false) { _plugin2.Enabled = true; }
             }
 
             _coroutine = new Decorator(c => CanDungeonAssist(), new ActionRunCoroutine(r => RunDungeonAssist()));
@@ -72,11 +72,6 @@ namespace DungeonAssist
         {
             TreeRoot.OnStart -= OnBotStart;
             TreeRoot.OnStop -= OnBotStop;
-			if (PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist" || p.Plugin.Name == "回避").Any())
-            {
-                var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist").FirstOrDefault();
-                if (_plugin.Enabled == true) { _plugin.Enabled = false; }
-            }
             RemoveHooks();
         }
 
@@ -97,7 +92,15 @@ namespace DungeonAssist
             TreeHooks.Instance.RemoveHook("TreeStart", _coroutine);
         }
 
-        private void OnBotStop(BotBase bot) { RemoveHooks(); }
+        private void OnBotStop(BotBase bot) { 
+		
+		RemoveHooks(); 
+		if (PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist" || p.Plugin.Name == "回避").Any())
+            {
+                var _plugin3 = PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist").FirstOrDefault();
+                if (_plugin3.Enabled == true) { _plugin3.Enabled = false; }
+            }
+		}
 
         private void OnBotStart(BotBase bot) { AddHooks(); }
 
