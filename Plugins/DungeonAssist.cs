@@ -72,6 +72,11 @@ namespace DungeonAssist
         {
             TreeRoot.OnStart -= OnBotStart;
             TreeRoot.OnStop -= OnBotStop;
+			if (PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist" || p.Plugin.Name == "回避").Any())
+            {
+                var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist").FirstOrDefault();
+                if (_plugin.Enabled == true) { _plugin.Enabled = false; }
+            }
             RemoveHooks();
         }
 
