@@ -1,4 +1,4 @@
-﻿using Buddy.Coroutines;
+using Buddy.Coroutines;
 using ff14bot;
 using ff14bot.AClasses;
 using ff14bot.Behavior;
@@ -37,6 +37,7 @@ namespace DungeonAssist
 	
 #endif
 
+		//public override string NameKAY { get; } = name;
         public override Version Version { get { return new Version(1, 1, 2); } }
 		//changelog
 		//V 1.1.1 = Disabling plugin on bot shutdown
@@ -44,14 +45,12 @@ namespace DungeonAssist
 		
 		//Todo
 		//Add ability to click yes on teleport to battle
-		
+		//Add loot pass (it's not necessary)
 
         private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372 }, WorldManager.ZoneId) >= 0;
-        
-		public override void OnInitialize()
+        public override void OnInitialize()
         {
-			//When you check the box on the plugin, this enables.  
-			if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+            if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
             {
                 var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
                 if (_plugin.Enabled == false) { _plugin.Enabled = true; }
@@ -62,10 +61,9 @@ namespace DungeonAssist
                 var _plugin2 = PluginManager.Plugins.Where(p => p.Plugin.Name == "Osiris").FirstOrDefault();
                 if (_plugin2.Enabled == false) { _plugin2.Enabled = true; }
             }
-			
-			//allows the override logic to work.
+
             _coroutine = new Decorator(c => CanDungeonAssist(), new ActionRunCoroutine(r => RunDungeonAssist()));
-			
+			//deathCoroutine2 = new ActionRunCoroutine(ctx => HandleDeath2());
         }
 
         public override void OnEnabled()
@@ -104,7 +102,6 @@ namespace DungeonAssist
         private void OnBotStop(BotBase bot) { 
 		
 		RemoveHooks(); 
-		//Disables DungeonAssist per user Request due to normal runs getting interference.  
 		if (PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist" || p.Plugin.Name == "回避").Any())
             {
                 var _plugin3 = PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist").FirstOrDefault();
@@ -113,7 +110,6 @@ namespace DungeonAssist
 		}
 
         private void OnBotStart(BotBase bot) { AddHooks(); }
-		//should probably be where the plugins load to be honest??  see how memory load works one day
 
         private void OnHooksCleared(object sender, EventArgs e) { RemoveHooks(); }
 
@@ -123,7 +119,11 @@ namespace DungeonAssist
 			//This code makes sure you're alive before running
           if (Core.Me.CurrentHealthPercent <= 0)
             {
-            //was a return false here for some reason
+                
+            return false;
+
+
+               
                 return true;
             }
 
@@ -136,15 +136,13 @@ namespace DungeonAssist
                 ActionManager.Sprint();
                 await Coroutine.Wait(1000, () => !ActionManager.IsSprintReady);
             }
-			
-			//Leftover Core from Trust (Leveling XP Boost for Food)
+
             //if (!Core.Player.HasAura(_buff)) { await EatFood(); }
 
             switch (WorldManager.ZoneId)
             {
                 
 				case 372: //80本 国际服 5.1
-					//Sees if player is a live, then runs dungeon
                     if (await PlayerCheck())  {  return true; }
                     return await SyrcusTower.Run();
                 default:
@@ -152,13 +150,11 @@ namespace DungeonAssist
                     return await SyrcusTower.Run();
             }
         }
-		
-		
+	
     }
 
     public class Settings : JsonSettings
     {
-		//This stuff all not really used
         private static Settings _instance;
         public static Settings Instance { get { return _instance ?? (_instance = new Settings()); ; } }
 
