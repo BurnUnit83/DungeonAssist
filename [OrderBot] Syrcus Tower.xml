@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Profile: [OrderBot] Syrcus Tower
-  Authors: Antony_256, DomesticWarlord86
+  Authors: Antony_256, DomesticWarlord86, NeonNeo
+  
+  This profile is very experimental. The profile itself runs well enough but alone it doesn't handle any mechanics.
+  That's where Osiris, Sidestep, and DungeonAssist come into play.
+  https://github.com/BurnUnit83/DungeonAssist.git
+  https://github.com/domesticwarlord86/Osiris.git
+  Both of these are plugins that go in your Plugin folder. Again they are VERY experimental and very much should not be ran unattended.
+  Osiris should handle waiting for raises. Overriding the default OrderBot behavior of releasing on death.
+  DungeonAssist should come in and handle Curtain Call and Levitation platforms for mechanics. Should.
+  Don't use this profile if you aren't willing to possibly look like a bot. 
+  Botting around other people is extremly risky.
+  You really probably shouldn't use this profile at all.
 -->
 <Profile>
-	<Name>[OrderBot] Syrcus_Tower</Name>
-	<Author>Antony_256, DomesticWarlord86</Author>
+	<Name>[OrderBot] Syrcus Tower</Name>
+	<Author>Antony_256, DomesticWarlord86, NeonNeo</Author>
 	<Order>
 	<RunCode name="PluginLoad"/>
+		<While condition="not HasAtLeast(32956,225)">
 			<While condition="not DutyManager.InInstance">
 				<LLJoinDuty DutyId="102" Undersized="False" Raid="True"/>
 			</While>
@@ -15,7 +27,6 @@
 
 				<If Condition="GetInstanceTodo(2) == 0">
 					<Log Message="Clear the Ladder of Ascension 0/1" />
-					
 					<MoveTo Name="Boss Arena 1" XYZ="-0.8759959, -700, 62.71616" Distance="1" />
 					<Grind GrindRef="Yellow Dragon" While="GetInstanceTodo(2) == 0" />
 					<MoveTo XYZ="36.59584, -682.3271, -34.34914" />
@@ -24,23 +35,22 @@
 
 				<If Condition="GetInstanceTodo(2) == 1 and GetInstanceTodo(3) == 0">
 					<Log Message="Defeat Scylla" />
-					<If condition="GameObjectManager.GetObjectByNPCId(2004154)">
+					<If condition="GameObjectManager.GetObjectByNPCId(2004154) or GameObjectManager.GetObjectByNPCId(2002941)">
 						<RunCode name="Allagan Teleporter"/>
 					</If>					
-					<Grind GrindRef="Scylla" While="GetInstanceTodo(3) == 0" />
-					
-					<MoveTo XYZ="-0.1552268, -589.46, -222.2895" usemesh="false" />
-					
+					<Grind GrindRef="Scylla" While="GetInstanceTodo(3) == 0" />	
+					<MoveTo XYZ="-0.1552268, -589.46, -222.2895" usemesh="false" />					
 					<MoveTo XYZ="-0.1741263, -581.6946, -252.3315" usemesh="false" />
 					<LLChangeZone Heading="3.156204"/>					
 				</If>
 				
 				<If Condition="GetInstanceTodo(3) == 1 and GetInstanceTodo(4) == 0">
 					<Log Message="Clear the Braid" />
-					
+					<If condition="GameObjectManager.GetObjectByNPCId(2004154) or GameObjectManager.GetObjectByNPCId(2002941)">
+						<RunCode name="Allagan Teleporter"/>
+					</If>					
 					<MoveTo XYZ="23.1056, -400, -200.1003" />
 					<Grind GrindRef="Green Dragon" While="GetInstanceTodo(4) == 0" />
-					
 					<MoveTo XYZ="-69.1171, -395.2811, -215.37" />
 					<LLChangeZone Heading="3.067017"/>	
 					<MoveTo Name="Jumppad" XYZ="4.952466, -4, -135.4132" />
@@ -49,7 +59,7 @@
 
 				<If Condition="GetInstanceTodo(4) == 1 and GetInstanceTodo(5) == 0">
 					<Log Message="Defeat Glasya Labolas 0/1" />
-					<If condition="GameObjectManager.GetObjectByNPCId(2004154)">
+					<If condition="GameObjectManager.GetObjectByNPCId(2004154) or GameObjectManager.GetObjectByNPCId(2002941)">
 						<RunCode name="Allagan Teleporter"/>
 					</If>
 					<Grind GrindRef="Glasya Labolas" While="GetInstanceTodo(5) == 0" />
@@ -59,33 +69,28 @@
 
 				<If Condition="GetInstanceTodo(5) == 1 and GetInstanceTodo(6) == 0">
 					<Log Message="Defeat the Golden Sacristy 0/1" />
-					<If condition="GameObjectManager.GetObjectByNPCId(2004154)">
+					<If condition="GameObjectManager.GetObjectByNPCId(2004154) or GameObjectManager.GetObjectByNPCId(2002941)">
 						<RunCode name="Allagan Teleporter"/>
-					</If>
-					
+					</If>					
 					<MoveTo XYZ="-0.04082332, 200, -222.5494" />
 					<Grind GrindRef="Red Dragon" PostCombatDelay="3.0" While="GetInstanceTodo(6) == 0" />
-					
 					<MoveTo XYZ="-16.32521, 204.8967, -132.3171" />
 					<LLChangeZone Heading="4.674441"/>
 				</If>
 				
 				<If Condition="GetInstanceTodo(6) == 1 and GetInstanceTodo(7) == 0">
 					<Log Message="Defeat Amon 0/1" />
-					<If condition="GameObjectManager.GetObjectByNPCId(2004154)">
+					<If condition="GameObjectManager.GetObjectByNPCId(2004154) or GameObjectManager.GetObjectByNPCId(2002941)">
 						<RunCode name="Allagan Teleporter"/>
 					</If>					
-					
 					<MoveTo XYZ="12.27859, 600, -179.0363" />
 					<Grind GrindRef="Amon" While="GetInstanceTodo(7) == 0" />	
-					
 					<MoveTo XYZ="-59.21965, 602.7, -199.7233" />
 					<LLChangeZone Heading="4.773327"/>
 				</If>
 
 				<If Condition="GetInstanceTodo(7) == 1 and GetInstanceTodo(8) == 0">
 					<Log Message="Defeat Xande 0/1" />
-					
 					<MoveTo XYZ="-374.567, 500.0322, -200.096" />
 					<Grind GrindRef="Xande" PostCombatDelay="3.0" While="GetInstanceTodo(8) == 0" /> 
 				</If>
@@ -95,6 +100,7 @@
 					<LLLeaveDuty/>
 				</If>	
 			</If>
+		</While>	
 
 	</Order>
 	<GrindAreas>
@@ -191,7 +197,7 @@
 		
 		
 		text1 = "Plug-In Dungeon Assist is installed and enabled";
-		text2 = "You Need the Dungeon Assist Plug-In to Operate this Profile";
+		text2 = "You Need the Dungeon Assist Plug-In to Operate this Profile https://github.com/BurnUnit83/DungeonAssist";
 		text3 = "Plug-In Osiris  is installed and enabled";
 		text4 = "You Need the Osiris Plug-In to Operate this Profile";
 		text5 = "Plug-In SideStep  is installed and enabled";
@@ -250,49 +256,7 @@
 				}
         await Coroutine.Sleep(6000);
       ]]>	
-		</CodeChunk>
-		<!--CodeChunk Name="CurtainCall">
-			<![CDATA[
-				Poi.Clear("Ice cage spawned");
-				Core.Me.ClearTarget();			
-				   var text3 = string.Empty;
-					var text4 = string.Empty;
-        
-				#if RB_CN
-						text3 = "近战如果打不到BOSS,另一个DPS带琳,添加吃食物,在DungeonAssist设置里设置食物";
-						text4 = "你必须在Plugins文件夹里存在DungeonAssist/亲信战友的插件";
-				#else
-						text3 = "Curtain Call Time!";
-						text4 = "This profile will not work without the DungeonAssist plugin being installed, and enabled.";
-				#endif
-
-						Core.OverlayManager.AddToast(() => text3, TimeSpan.FromMilliseconds(5000), System.Windows.Media.Color.FromRgb(29,213,226), System.Windows.Media.Color.FromRgb(13,106,175), new System.Windows.Media.FontFamily("Gautami"));
-						await Coroutine.Sleep(6000);
-								
-				while (Core.Me.Location.Distance2D(PartyManager.PartyLeader.BattleCharacter.Location) > 0.5)
-				{
-				  MovementManager.SetFacing(PartyManager.PartyLeader.BattleCharacter.Location);
-				  MovementManager.MoveForwardStart();
-				  await Coroutine.Sleep(100);
-				  MovementManager.MoveStop();
-				}
-				await Coroutine.Sleep(1000);
-			]]>
-		</CodeChunk-->
-		<!--CodeChunk Name="AncientQuaga">
-			<![CDATA[
-				Poi.Clear("Ancient Quaga, Get to Leader");
-				Core.Me.ClearTarget();			
-				while (Core.Me.Location.Distance2D(PartyManager.PartyLeader.BattleCharacter.Location) > 0.5)
-				{
-				  MovementManager.SetFacing(PartyManager.PartyLeader.BattleCharacter.Location);
-				  MovementManager.MoveForwardStart();
-				  await Coroutine.Sleep(100);
-				  MovementManager.MoveStop();
-				}
-				await Coroutine.Sleep(1000);
-			]]>
-		</CodeChunk-->
+		</CodeChunk>	
 		<CodeChunk Name="Jumppad">
 			<![CDATA[
 				Core.Me.SetFacing(4.691895f);
@@ -303,22 +267,18 @@
 		</CodeChunk>
 		<CodeChunk Name="Allagan Teleporter">
 			<![CDATA[
-				var npcId = GameObjectManager.GetObjectByNPCId(2002941);
-
-				if (!npcId.IsWithinInteractRange)
+				Logging.Write("Moving to Allagan Teleporter.");
+				uint[] npcIds = { 2004154, 2002941};
+				var dutyNpc = GameObjectManager.GameObjects.Where(r => r.IsTargetable && npcIds.Contains(r.NpcId)).OrderBy(r => r.Distance()).FirstOrDefault();
 				
-					{
-						var _target = npcId.Location;
-						Navigator.PlayerMover.MoveTowards(_target);
-						while (_target.Distance2D(Core.Me.Location) >= 4)
-							{
-								Navigator.PlayerMover.MoveTowards(_target);
-								await Coroutine.Sleep(100);
-							}
-						Navigator.PlayerMover.MoveStop();
-					}
-							
-				npcId.Interact();			
+				while (Core.Me.Location.Distance2D(dutyNpc.Location) > 1.5f)
+				{
+				  await Coroutine.Yield();
+				  Navigator.PlayerMover.MoveTowards(dutyNpc.Location);
+				}
+				
+				Navigator.PlayerMover.MoveStop();
+				dutyNpc.Interact();						
 
 				await Coroutine.Wait(5000, () => SelectYesno.IsOpen);
 				if (ff14bot.RemoteWindows.SelectYesno.IsOpen)
