@@ -38,13 +38,13 @@ namespace DungeonAssist
 #endif
 
 		//public override string NameKAY { get; } = name;
-        public override Version Version { get { return new Version(1, 1, 2); } }
+        public override Version Version { get { return new Version(1, 1, 3); } }
 		//changelog
 		//V 1.1.1 = Disabling plugin on bot shutdown
 		//V 1.1.2 = Corrected var plugin to var plugin2 for OSIRIS to run. Removing Death Logic and allowing Osiris to run
+		//V 1.1.3 = Selects Yes to Auto Teleport to Battle 
 		
 		//Todo
-		//Add ability to click yes on teleport to battle
 		//Add loot pass (it's not necessary)
 
         private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372 }, WorldManager.ZoneId) >= 0;
@@ -63,7 +63,7 @@ namespace DungeonAssist
             }
 
             _coroutine = new Decorator(c => CanDungeonAssist(), new ActionRunCoroutine(r => RunDungeonAssist()));
-			//deathCoroutine2 = new ActionRunCoroutine(ctx => HandleDeath2());
+			
         }
 
         public override void OnEnabled()
@@ -73,6 +73,8 @@ namespace DungeonAssist
             TreeHooks.Instance.OnHooksCleared += OnHooksCleared;
 
             if (TreeRoot.IsRunning) { AddHooks(); }
+			
+			
         }
 
         public override void OnDisabled()
@@ -136,7 +138,11 @@ namespace DungeonAssist
                 ActionManager.Sprint();
                 await Coroutine.Wait(1000, () => !ActionManager.IsSprintReady);
             }
-
+			if (SelectYesno.IsOpen && Core.Me.CurrentHealthPercent > 0)
+			{
+				Logging.Write(Colors.Aquamarine, "Clicking Yes to Teleport to Battle");
+				SelectYesno.ClickYes();
+			}
             //if (!Core.Player.HasAura(_buff)) { await EatFood(); }
 
             switch (WorldManager.ZoneId)
