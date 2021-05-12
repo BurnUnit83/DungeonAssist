@@ -38,14 +38,16 @@ namespace DungeonAssist
 #endif
 
 		//public override string NameKAY { get; } = name;
-        public override Version Version { get { return new Version(1, 1, 3); } }
+        public override Version Version { get { return new Version(1, 1, 4); } }
 		//changelog
 		//V 1.1.1 = Disabling plugin on bot shutdown
 		//V 1.1.2 = Corrected var plugin to var plugin2 for OSIRIS to run. Removing Death Logic and allowing Osiris to run
-		//V 1.1.3 = Selects Yes to Auto Teleport to Battle 
+		//V 1.1.3 = Selects Yes to Auto Teleport to Battle
+		//Loot was added to Orderbot Tags by Kayla, not needed here
+		//V 1.1.4 = Exits Duty if instance is complete after a small delay.  Revives if necessary
 		
 		//Todo
-		//Add loot pass (it's not necessary)
+		
 
         private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372 }, WorldManager.ZoneId) >= 0;
         public override void OnInitialize()
@@ -143,6 +145,53 @@ namespace DungeonAssist
 				Logging.Write(Colors.Aquamarine, "Clicking Yes to Teleport to Battle");
 				SelectYesno.ClickYes();
 			}
+			
+			if (DutyManager.InInstance) // && Core.Me.CurrentHealthPercent <= 0)
+				{
+					if (DirectorManager.ActiveDirector != null) //director isn't null
+					{	
+						//Checks Duty State
+						var activeAsInstance = (ff14bot.Directors.InstanceContentDirector) DirectorManager.ActiveDirector;
+						if (activeAsInstance.InstanceEnded) //Duty ended
+						{
+							if (Core.Me.CurrentHealthPercent <= 0)
+							{
+								await Coroutine.Sleep(500);
+								//Checks Dead State and Revives
+								await Coroutine.Wait(3000, () => ClientGameUiRevive.ReviveState == ReviveState.Dead);
+								Logging.Write(Colors.Aquamarine, "No one is in combat, releasing...");
+								await Coroutine.Sleep(500);
+								ff14bot.RemoteWindows.SelectOk.ClickOk();
+								while (CommonBehaviors.IsLoading)
+								{
+									Logging.Write(Colors.Aquamarine, "Waiting for zoning to finish...");
+									await Coroutine.Wait(-1, () => (!CommonBehaviors.IsLoading));
+								}
+
+								while (!Core.Me.IsAlive)
+								{
+									Logging.Write(Colors.Aquamarine, "Zoning finsihed, waiting to become alive...");
+									await Coroutine.Wait(-1, () => (Core.Me.IsAlive));
+								}
+								
+							}
+								Logging.Write(Colors.Aquamarine, "Instance Complete");
+								await Coroutine.Sleep(10000);
+								Logging.Write(Colors.Aquamarine, "Leaving Duty");
+								ff14bot.Managers.DutyManager.LeaveActiveDuty();
+								Logging.Write(Colors.Aquamarine, "Waiting for Zoning");
+								await Coroutine.Wait(22000, () => CommonBehaviors.IsLoading);
+								if (CommonBehaviors.IsLoading)
+								{
+									await Coroutine.Wait(-1, () => !CommonBehaviors.IsLoading);
+								}
+
+								Logging.Write(Colors.Aquamarine, "Reloading Profile");
+								NeoProfileManager.Load(NeoProfileManager.CurrentProfile.Path, true);
+								NeoProfileManager.UpdateCurrentProfileBehavior();
+						}
+					}
+				}
             //if (!Core.Player.HasAura(_buff)) { await EatFood(); }
 
             switch (WorldManager.ZoneId)
