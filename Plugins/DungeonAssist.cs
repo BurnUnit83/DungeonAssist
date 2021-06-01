@@ -49,7 +49,7 @@ namespace DungeonAssist
 		//Todo
 		
 
-        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372 }, WorldManager.ZoneId) >= 0;
+        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372, 444, 742 }, WorldManager.ZoneId) >= 0;
         public override void OnInitialize()
         {
             if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
@@ -154,13 +154,16 @@ namespace DungeonAssist
 						var activeAsInstance = (ff14bot.Directors.InstanceContentDirector) DirectorManager.ActiveDirector;
 						if (activeAsInstance.InstanceEnded) //Duty ended
 						{
-							if (Core.Me.CurrentHealthPercent <= 0)
+							
+							/*if (Core.Me.CurrentHealthPercent <= 0)
 							{
 								await Coroutine.Sleep(500);
 								//Checks Dead State and Revives
 								await Coroutine.Wait(3000, () => ClientGameUiRevive.ReviveState == ReviveState.Dead);
 								Logging.Write(Colors.Aquamarine, "No one is in combat, releasing...");
 								await Coroutine.Sleep(500);
+								SelectYesno.ClickYes();
+								ff14bot.RemoteWindows.NotificationRevive.Click();
 								ff14bot.RemoteWindows.SelectOk.ClickOk();
 								while (CommonBehaviors.IsLoading)
 								{
@@ -174,7 +177,9 @@ namespace DungeonAssist
 									await Coroutine.Wait(-1, () => (Core.Me.IsAlive));
 								}
 								
-							}
+							}*/
+							
+							  //Testing Necessity of this aspect with orderbot with the revive)
 								Logging.Write(Colors.Aquamarine, "Instance Complete");
 								await Coroutine.Sleep(10000);
 								Logging.Write(Colors.Aquamarine, "Leaving Duty");
@@ -189,17 +194,21 @@ namespace DungeonAssist
 								Logging.Write(Colors.Aquamarine, "Reloading Profile");
 								NeoProfileManager.Load(NeoProfileManager.CurrentProfile.Path, true);
 								NeoProfileManager.UpdateCurrentProfileBehavior();
+								
 						}
 					}
 				}
             //if (!Core.Player.HasAura(_buff)) { await EatFood(); }
-
+			
             switch (WorldManager.ZoneId)
             {
                 
 				case 372: //80本 国际服 5.1
                     if (await PlayerCheck())  {  return true; }
                     return await SyrcusTower.Run();
+				case 742: //80本 国际服 5.1
+                    if (await PlayerCheck())  {  return true; }
+                    return await HellsLid.Run();
                 default:
                     if (await PlayerCheck())  {  return true; }
                     return await SyrcusTower.Run();
