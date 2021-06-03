@@ -27,11 +27,12 @@ namespace DungeonAssist
             // NOT TESTED
 
             #region Spell Filters
-            /// 532, 1837, 2794, 5445, 7931, 9076, 9338, 9490, 2441
      
            HashSet<uint> Spells = new HashSet<uint>()
             {                		
-				 16333,16334 //Temporary Current
+				  16333,16334 		//Temporary Current
+				 ,16337 			//Undersea Quake
+				 ,16338,16339 		//TidalWave (Preview and Execute)
 				            };
             #endregion
 
@@ -43,7 +44,7 @@ namespace DungeonAssist
              if (TempCurrentRight.IsCasting())
              {
 				Helpers.BossIds.ToggleSideStep();                
-                Vector3 _loc = new Vector3(87, 0, 91);
+                Vector3 _loc = new Vector3(111, 0, 87);
 
                 while (Core.Me.Distance(_loc) > 1f)
                 {
@@ -73,7 +74,7 @@ namespace DungeonAssist
              if (TempCurrentLeft.IsCasting())
              {
 				Helpers.BossIds.ToggleSideStep();                
-                Vector3 _loc = new Vector3(98, 0, 98);
+                Vector3 _loc = new Vector3(117, 0, 116);
 
                 while (Core.Me.Distance(_loc) > 1f)
                 {
@@ -98,7 +99,35 @@ namespace DungeonAssist
                  sw.Stop();
 				 Helpers.BossIds.ToggleSideStep();
              }
-			
+			 HashSet<uint> TempCurrentLeft = new HashSet<uint>() { 16337,16338,16339 };
+             if (TempCurrentLeft.IsCasting())
+             {
+				Helpers.BossIds.ToggleSideStep();                
+                Vector3 _loc = new Vector3(99, 0, 99);
+
+                while (Core.Me.Distance(_loc) > 1f)
+                {
+                    await CommonTasks.MoveTo(_loc);
+                    await Coroutine.Yield();
+                }
+
+                await Coroutine.Sleep(3000);
+
+                if (ActionManager.IsSprintReady)
+                {
+                    ActionManager.Sprint();
+                    await Coroutine.Wait(1000, () => !ActionManager.IsSprintReady);
+                }
+                 Stopwatch sw = new Stopwatch();
+                 sw.Start();
+				 //Logging.Write(Colors.Aquamarine, $"Ancient Flare Handling");
+                 
+				 await Coroutine.Sleep(1000);
+                 await Coroutine.Yield();
+             
+                 sw.Stop();
+				 Helpers.BossIds.ToggleSideStep();
+             }
 			 
 			
             #endregion
