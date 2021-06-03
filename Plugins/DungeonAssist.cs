@@ -49,7 +49,7 @@ namespace DungeonAssist
 		//Todo
 		
 
-        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372, 444, 742 }, WorldManager.ZoneId) >= 0;
+        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372, 444, 742, 851 }, WorldManager.ZoneId) >= 0;
         public override void OnInitialize()
         {
             if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
@@ -209,6 +209,9 @@ namespace DungeonAssist
 				case 742: //80本 国际服 5.1
                     if (await PlayerCheck())  {  return true; }
                     return await HellsLid.Run();
+				case 851: //80本 国际服 5.1
+                    if (await PlayerCheck())  {  return true; }
+                    return await EdensGateInundationLevi.Run();
                 default:
                     if (await PlayerCheck())  {  return true; }
                     return await SyrcusTower.Run();

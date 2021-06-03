@@ -20,7 +20,7 @@ using System.Windows.Media;
 
 namespace DungeonAssist
 {
-    public class HellsLid
+    public class EdensGateUnundationLevi
     {
         public static async Task<bool> Run()
         {
