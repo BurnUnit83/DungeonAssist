@@ -30,29 +30,20 @@ namespace DungeonAssist
             /// 532, 1837, 2794, 5445, 7931, 9076, 9338, 9490, 2441
      
            HashSet<uint> Spells = new HashSet<uint>()
-            {
-                //1st boss 100 tonze swing
-				//10176 liquid capace (constant spewing attack, needs to run away)
-				//2nd boss Reapders gale
-				//10599. 10187 <45.62811, -26, -105.941> or Current XYZ: <50.26293, -26, -111.4103>
-				 11541,10192 //Hell of Water by Genbu
-				,10193,10194 //Hell of Waste by Genbu
-				//,10196,10197 //Sinister Tide (Arrow Mechanic)
-				
-            };
+            {                		
+				 16333,16334 //Temporary Current
+				            };
             #endregion
 
             #region Custom Mechanics
 
            
 						
-			HashSet<uint> HellOfWater = new HashSet<uint>() { 11541,10192 };
-             if (HellOfWater.IsCasting())
+			HashSet<uint> TempCurrentRight = new HashSet<uint>() { 16333 };
+             if (TempCurrentRight.IsCasting())
              {
-				 //Avoider(AvoiderType.Spell, 11541); //Sidestep should have this =\
-				 //Avoider(AvoiderType.Spell, 10192);
-               
-                Vector3 _loc = new Vector3(55, -88, -461);
+				Helpers.BossIds.ToggleSideStep();                
+                Vector3 _loc = new Vector3(87, 0, 91);
 
                 while (Core.Me.Distance(_loc) > 1f)
                 {
@@ -75,13 +66,14 @@ namespace DungeonAssist
                  await Coroutine.Yield();
              
                  sw.Stop();
+				 Helpers.BossIds.ToggleSideStep();
              }
 			
-			 
-			HashSet<uint> HellOfWaste = new HashSet<uint>() { 10193 };
-             if (HellOfWaste.IsCasting())
+			 HashSet<uint> TempCurrentLeft = new HashSet<uint>() { 16334 };
+             if (TempCurrentLeft.IsCasting())
              {
-				Vector3 _loc = new Vector3(74, -88, -468);
+				Helpers.BossIds.ToggleSideStep();                
+                Vector3 _loc = new Vector3(98, 0, 98);
 
                 while (Core.Me.Distance(_loc) > 1f)
                 {
@@ -104,35 +96,9 @@ namespace DungeonAssist
                  await Coroutine.Yield();
              
                  sw.Stop();
+				 Helpers.BossIds.ToggleSideStep();
              }
-			 
-			 HashSet<uint> HellOfWaste2 = new HashSet<uint>() { 10194 };
-             if (HellOfWaste2.IsCasting())
-             {
-				Vector3 _loc = new Vector3(50, -88, -468);
-
-                while (Core.Me.Distance(_loc) > 1f)
-                {
-                    await CommonTasks.MoveTo(_loc);
-                    await Coroutine.Yield();
-                }
-
-                await Coroutine.Sleep(3000);
-
-                if (ActionManager.IsSprintReady)
-                {
-                    ActionManager.Sprint();
-                    await Coroutine.Wait(1000, () => !ActionManager.IsSprintReady);
-                }
-                 Stopwatch sw = new Stopwatch();
-                 sw.Start();
-				 //Logging.Write(Colors.Aquamarine, $"Ancient Flare Handling");
-                 
-				 await Coroutine.Sleep(1000);
-                 await Coroutine.Yield();
-             
-                 sw.Stop();
-             }
+			
 			 
 			
             #endregion
