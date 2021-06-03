@@ -1,10 +1,3 @@
-//harvest
-//hell of water
-	// move to side
-//water ball mopving -> genbu
-	//wait 10 seconds and run towards location
-//hell of waste
-	//spread out
 using Buddy.Coroutines;
 using Clio.Utilities;
 using ff14bot;
@@ -33,6 +26,9 @@ namespace DungeonAssist
 				  16333,16334 		//Temporary Current
 				 ,16337 			//Undersea Quake
 				 ,16338,16339 		//TidalWave (Preview and Execute)
+				 //,16328 			//Drenching Pulse
+				 //,16344			//Maelstrom (Where it divebombs) Needs avoidance from the two whirlpools
+				 //Needs Mechanic for Blue Circle with Red Squares over head to seperate
 				            };
             #endregion
 
@@ -43,8 +39,14 @@ namespace DungeonAssist
 			HashSet<uint> TempCurrentRight = new HashSet<uint>() { 16333 };
              if (TempCurrentRight.IsCasting())
              {
-				Helpers.BossIds.ToggleSideStep();                
-                Vector3 _loc = new Vector3(111, 0, 87);
+				//SIDESTEP TOGGLE
+					 if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+						{
+							var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
+							if (_plugin.Enabled == true) { _plugin.Enabled = false; }
+						}
+				//SIDESTEP TOGGLE				
+                Vector3 _loc = new Vector3(81, 0, 112);
 
                 while (Core.Me.Distance(_loc) > 1f)
                 {
@@ -67,14 +69,26 @@ namespace DungeonAssist
                  await Coroutine.Yield();
              
                  sw.Stop();
-				 Helpers.BossIds.ToggleSideStep();
+				 //SIDESTEP TOGGLE
+					 if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+						{
+							var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
+							if (_plugin.Enabled == false) { _plugin.Enabled = true; }
+						}
+				//SIDESTEP TOGGLE	
              }
 			
 			 HashSet<uint> TempCurrentLeft = new HashSet<uint>() { 16334 };
              if (TempCurrentLeft.IsCasting())
              {
-				Helpers.BossIds.ToggleSideStep();                
-                Vector3 _loc = new Vector3(117, 0, 116);
+				//SIDESTEP TOGGLE
+					 if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+						{
+							var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
+							if (_plugin.Enabled == true) { _plugin.Enabled = false; }
+						}
+				//SIDESTEP TOGGLE	              
+                Vector3 _loc = new Vector3(87, 0, 82);
 
                 while (Core.Me.Distance(_loc) > 1f)
                 {
@@ -97,12 +111,24 @@ namespace DungeonAssist
                  await Coroutine.Yield();
              
                  sw.Stop();
-				 Helpers.BossIds.ToggleSideStep();
+				 //SIDESTEP TOGGLE
+					 if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+						{
+							var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
+							if (_plugin.Enabled == false) { _plugin.Enabled = true; }
+						}
+				//SIDESTEP TOGGLE	
              }
 			 HashSet<uint> TidalWaveQuake = new HashSet<uint>() { 16337,16338,16339 };
              if (TidalWaveQuake.IsCasting())
              {
-				Helpers.BossIds.ToggleSideStep();                
+				//SIDESTEP TOGGLE
+					 if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+						{
+							var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
+							if (_plugin.Enabled == true) { _plugin.Enabled = false; }
+						}
+				//SIDESTEP TOGGLE	                
                 Vector3 _loc = new Vector3(99, 0, 99);
 
                 while (Core.Me.Distance(_loc) > 1f)
@@ -126,7 +152,13 @@ namespace DungeonAssist
                  await Coroutine.Yield();
              
                  sw.Stop();
-				 Helpers.BossIds.ToggleSideStep();
+				//SIDESTEP TOGGLE
+					 if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+						{
+							var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
+							if (_plugin.Enabled == false) { _plugin.Enabled = true; }
+						}
+				//SIDESTEP TOGGLE	
              }
 			 
 			
