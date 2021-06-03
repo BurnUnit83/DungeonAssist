@@ -99,8 +99,8 @@ namespace DungeonAssist
                  sw.Stop();
 				 Helpers.BossIds.ToggleSideStep();
              }
-			 HashSet<uint> TempCurrentLeft = new HashSet<uint>() { 16337,16338,16339 };
-             if (TempCurrentLeft.IsCasting())
+			 HashSet<uint> TidalWaveQuake = new HashSet<uint>() { 16337,16338,16339 };
+             if (TidalWaveQuake.IsCasting())
              {
 				Helpers.BossIds.ToggleSideStep();                
                 Vector3 _loc = new Vector3(99, 0, 99);
