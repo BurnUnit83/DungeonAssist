@@ -57,9 +57,9 @@ namespace DungeonAssist
 						}
 				//SIDESTEP TOGGLE				
                 Logging.Write(Colors.Aquamarine, $"Temporary Current Right Handling - Moving to Coordinates");
-				Vector3 _loc = new Vector3(81, 0, 112);
+				Vector3 _loc = new Vector3(113, 0, 83);
 
-                while (Core.Me.Distance(_loc) > 1f)
+                while (Core.Me.Distance(_loc) > 2f)
                 {
                     await CommonTasks.MoveTo(_loc);
                     await Coroutine.Yield();
@@ -101,10 +101,10 @@ namespace DungeonAssist
 							if (_plugin.Enabled == true) { _plugin.Enabled = false; Logging.Write(Colors.Aquamarine, $"Temporary Current Left Handling - Sidestep Off!");}
 						}
 				//SIDESTEP TOGGLE	        
-					Logging.Write(Colors.Aquamarine, $"Temporary Current Left Handling - Moving to Coordinates");
-                Vector3 _loc = new Vector3(87, 0, 82);
+					Logginwg.Write(Colors.Aquamarine, $"Temporary Current Left Handling - Moving to Coordinates");
+                Vector3 _loc = new Vector3(86, 0, 83);
 
-                while (Core.Me.Distance(_loc) > 1f)
+                while (Core.Me.Distance(_loc) > 2f)
                 {
                     await CommonTasks.MoveTo(_loc);
                     await Coroutine.Yield();
@@ -149,7 +149,7 @@ namespace DungeonAssist
 				Logging.Write(Colors.Aquamarine, $"Quale/Tidal Handling - Moving to Dead Center");
                 Vector3 _loc = new Vector3(99, 0, 99);
 
-                while (Core.Me.Distance(_loc) > 1f)
+                while (Core.Me.Distance(_loc) > 2f)
                 {
                     await CommonTasks.MoveTo(_loc);
                     await Coroutine.Yield();
