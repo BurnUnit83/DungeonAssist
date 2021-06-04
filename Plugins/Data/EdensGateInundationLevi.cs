@@ -37,11 +37,11 @@ namespace DungeonAssist
 				 //Needs Mechanic for Blue Circle with Red Squares over head to seperate
 				            };
             #endregion
-
+			
             #region Custom Mechanics
 
            
-						
+				/*		
 			HashSet<uint> TempCurrentRight = new HashSet<uint>() { 16333 };
              if (TempCurrentRight.IsCasting())
              {
@@ -181,7 +181,7 @@ namespace DungeonAssist
 				Logging.Write(Colors.Aquamarine, $"Quale/Tidal Handling - Complete");
              }
 			 
-			
+			*/
             #endregion
 
             /// Default (缺省)
