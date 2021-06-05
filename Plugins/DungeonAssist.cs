@@ -38,13 +38,14 @@ namespace DungeonAssist
 #endif
 
 		//public override string NameKAY { get; } = name;
-        public override Version Version { get { return new Version(1, 1, 4); } }
+        public override Version Version { get { return new Version(1, 1, 5); } }
 		//changelog
 		//V 1.1.1 = Disabling plugin on bot shutdown
 		//V 1.1.2 = Corrected var plugin to var plugin2 for OSIRIS to run. Removing Death Logic and allowing Osiris to run
 		//V 1.1.3 = Selects Yes to Auto Teleport to Battle
 		//Loot was added to Orderbot Tags by Kayla, not needed here
 		//V 1.1.4 = Exits Duty if instance is complete after a small delay.  Revives if necessary
+		//V 1.1.5 = Supports Alexander Water Thingy Guy, Eden's Gate Innundation (Leviathan) and Hell's Lid zones
 		
 		//Todo
 		
