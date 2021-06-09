@@ -38,7 +38,7 @@ namespace DungeonAssist
 #endif
 
 		//public override string NameKAY { get; } = name;
-        public override Version Version { get { return new Version(1, 1, 5); } }
+        public override Version Version { get { return new Version(1, 1, 6); } }
 		//changelog
 		//V 1.1.1 = Disabling plugin on bot shutdown
 		//V 1.1.2 = Corrected var plugin to var plugin2 for OSIRIS to run. Removing Death Logic and allowing Osiris to run
@@ -46,17 +46,25 @@ namespace DungeonAssist
 		//Loot was added to Orderbot Tags by Kayla, not needed here
 		//V 1.1.4 = Exits Duty if instance is complete after a small delay.  Revives if necessary
 		//V 1.1.5 = Supports Alexander Water Thingy Guy, Eden's Gate Innundation (Leviathan) and Hell's Lid zones
-		
+		//V 1.1.6 = Revive Death Logic Split up by Run Type
 		//Todo
 		
 
         private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 372, 444, 742, 851 }, WorldManager.ZoneId) >= 0;
+		private bool TurnOffSideStep() => Array.IndexOf(new int[] { 851, 1111 }, WorldManager.ZoneId) >= 0;
+		private bool ReviveRaid() => Array.IndexOf(new int[] { 372, 742, 851 }, WorldManager.ZoneId) >= 0;
+		private bool ReviveDungeon() => Array.IndexOf(new int[] { 111, 1111 }, WorldManager.ZoneId) >= 0;
         public override void OnInitialize()
         {
-            if (PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any())
+            if ((PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any()) && (!TurnOffSideStep()))
             {
                 var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
                 if (_plugin.Enabled == false) { _plugin.Enabled = true; }
+            }
+			else if ((PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").Any()) && (TurnOffSideStep()))
+            {
+                var _plugin = PluginManager.Plugins.Where(p => p.Plugin.Name == "SideStep" || p.Plugin.Name == "回避").FirstOrDefault();
+                if (_plugin.Enabled == true) { _plugin.Enabled = false; }
             }
 			
 			if (PluginManager.Plugins.Where(p => p.Plugin.Name == "Osiris" ).Any())
@@ -163,9 +171,18 @@ namespace DungeonAssist
 								await Coroutine.Wait(3000, () => ClientGameUiRevive.ReviveState == ReviveState.Dead);
 								Logging.Write(Colors.Aquamarine, "No one is in combat, releasing...");
 								await Coroutine.Sleep(500);
-								SelectYesno.ClickYes();
-								ff14bot.RemoteWindows.NotificationRevive.Click();
-								ff14bot.RemoteWindows.SelectOk.ClickOk();
+								if(ReviveRaid())
+								{
+									SelectYesno.ClickYes();
+								}
+								else if(ReviveDungeon())
+								{
+									ff14bot.RemoteWindows.NotificationRevive.Click();
+								}
+								else
+								{
+									ff14bot.RemoteWindows.SelectOk.ClickOk();
+								}
 								while (CommonBehaviors.IsLoading)
 								{
 									Logging.Write(Colors.Aquamarine, "Waiting for zoning to finish...");

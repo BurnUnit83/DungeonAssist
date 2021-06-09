@@ -7,6 +7,7 @@
 	//spread out
 using Buddy.Coroutines;
 using Clio.Utilities;
+using Clio.Common;
 using ff14bot;
 using ff14bot.Behavior;
 using ff14bot.Managers;
@@ -52,13 +53,13 @@ namespace DungeonAssist
 				 //Avoider(AvoiderType.Spell, 11541); //Sidestep should have this =\
 				 //Avoider(AvoiderType.Spell, 10192);
                
-                Vector3 _loc = new Vector3(55, -88, -461);
+                //Vector3 _loc = new Vector3 GetRandomPointInCircle(55, -88, -461,3f);
 
-                while (Core.Me.Distance(_loc) > 1f)
-                {
-                    await CommonTasks.MoveTo(_loc);
+//                while (Core.Me.Distance(_loc) > 1f)
+  //              {
+                    await CommonTasks.MoveTo(MathEx.GetRandomPointInCircle(Core.Me.Location, 3f));
                     await Coroutine.Yield();
-                }
+    //            }
 
                 await Coroutine.Sleep(3000);
 
@@ -77,45 +78,13 @@ namespace DungeonAssist
                  sw.Stop();
              }
 			
-			 
-			HashSet<uint> HellOfWaste = new HashSet<uint>() { 10193 };
-             if (HellOfWaste.IsCasting())
-             {
-				Vector3 _loc = new Vector3(74, -88, -468);
-
-                while (Core.Me.Distance(_loc) > 1f)
-                {
-                    await CommonTasks.MoveTo(_loc);
-                    await Coroutine.Yield();
-                }
-
-                await Coroutine.Sleep(3000);
-
-                if (ActionManager.IsSprintReady)
-                {
-                    ActionManager.Sprint();
-                    await Coroutine.Wait(1000, () => !ActionManager.IsSprintReady);
-                }
-                 Stopwatch sw = new Stopwatch();
-                 sw.Start();
-				 //Logging.Write(Colors.Aquamarine, $"Ancient Flare Handling");
-                 
-				 await Coroutine.Sleep(1000);
-                 await Coroutine.Yield();
-             
-                 sw.Stop();
-             }
-			 
-			 HashSet<uint> HellOfWaste2 = new HashSet<uint>() { 10194 };
+			 HashSet<uint> HellOfWaste2 = new HashSet<uint>() { 10194, 10193 };
              if (HellOfWaste2.IsCasting())
              {
-				Vector3 _loc = new Vector3(50, -88, -468);
-
-                while (Core.Me.Distance(_loc) > 1f)
-                {
-                    await CommonTasks.MoveTo(_loc);
+				
+                    await CommonTasks.MoveTo(MathEx.GetRandomPointInCircle(Core.Me.Location, 3f));
                     await Coroutine.Yield();
-                }
+                
 
                 await Coroutine.Sleep(3000);
 
