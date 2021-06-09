@@ -156,7 +156,7 @@ namespace DungeonAssist
 						if (activeAsInstance.InstanceEnded) //Duty ended
 						{
 							
-							/*if (Core.Me.CurrentHealthPercent <= 0)
+							if (Core.Me.CurrentHealthPercent <= 0)
 							{
 								await Coroutine.Sleep(500);
 								//Checks Dead State and Revives
@@ -178,7 +178,7 @@ namespace DungeonAssist
 									await Coroutine.Wait(-1, () => (Core.Me.IsAlive));
 								}
 								
-							}*/
+							}
 							
 							  //Testing Necessity of this aspect with orderbot with the revive)
 								Logging.Write(Colors.Aquamarine, "Instance Complete");
