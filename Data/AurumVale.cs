@@ -33,7 +33,7 @@ namespace DungeonAssist
 					if (npc != default(GameObject))
 					{
 						Logging.Write("We have aura, moving to Morbol Fruit.");
-						if (await Navigation.OffMeshMoveInteract(npc))
+						if (await Navigation.FlightorMove(npc.Location))
 						{
 							npc.Interact();
 							await Coroutine.Wait(10000, () => !Core.Me.HasAura(302));
@@ -57,7 +57,7 @@ namespace DungeonAssist
 					if (npc != default(GameObject))
 					{
 						Logging.Write("We have aura, moving to Morbol Fruit.");
-						if (await Navigation.OffMeshMoveInteract(npc))
+						if (await Navigation.FlightorMove(npc.Location))
 						{
 							npc.Interact();
 							await Coroutine.Wait(10000, () => !Core.Me.HasAura(303));
