@@ -54,6 +54,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Data\AurumVale.cs" />
+        <Compile Include="Data\CastrumMeridianum.cs" />
         <Compile Include="Data\EdensGateInundationLevi.cs" />
         <Compile Include="Data\HellsLid.cs" />
         <Compile Include="Data\SyrcusTower.cs" />
@@ -62,6 +63,8 @@
         <Compile Include="DungeonSettings.Designer.cs" />
         <Compile Include="Extensions\Extensions.cs" />
         <Compile Include="Helpers\Helpers.cs" />
+        <Compile Include="Helpers\MovementHelpers.cs" />
+        <Compile Include="Helpers\PluginHelpers.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <EmbeddedResource Include="DungeonSettings.resx" />
         <EmbeddedResource Include="Properties\Resources.resx">

@@ -50,7 +50,7 @@ namespace DungeonAssist
 		//Todo
 		
 
-        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851 }, WorldManager.ZoneId) >= 0;
+        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851, 1043 }, WorldManager.ZoneId) >= 0;
 		private bool TurnOffSideStep() => Array.IndexOf(new int[] { 851, 1111 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveRaid() => Array.IndexOf(new int[] { 372, 742, 851 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveDungeon() => Array.IndexOf(new int[] { 111, 1111 }, WorldManager.ZoneId) >= 0;
@@ -84,7 +84,12 @@ namespace DungeonAssist
             TreeHooks.Instance.OnHooksCleared += OnHooksCleared;
 
             if (TreeRoot.IsRunning) { AddHooks(); }
-			
+            
+            PluginContainer plugin = PluginHelpers.GetSideStepPlugin();
+            if (plugin != null)
+            {
+	            plugin.Enabled = true;
+            }
 			
         }
 
@@ -116,10 +121,10 @@ namespace DungeonAssist
 		
 		RemoveHooks(); 
 		if (PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist" || p.Plugin.Name == "回避").Any())
-            {
-                var _plugin3 = PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist").FirstOrDefault();
-                if (_plugin3.Enabled == true) { _plugin3.Enabled = false; }
-            }
+		{
+			var _plugin3 = PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist").FirstOrDefault();
+			if (_plugin3.Enabled == true) { _plugin3.Enabled = false; }
+		}
 		}
 
         private void OnBotStart(BotBase bot) { AddHooks(); }
@@ -131,16 +136,16 @@ namespace DungeonAssist
         {
 			//This code makes sure you're alive before running
           if (Core.Me.CurrentHealthPercent <= 0)
-            {
+          {
                 
-            return false;
+	          return false;
 
 
                
-                return true;
-            }
+	          return true;
+          }
 
-            return false;
+          return false;
         }
         private async Task<bool> RunDungeonAssist()
         {
@@ -156,68 +161,68 @@ namespace DungeonAssist
 			}
 			
 			if (DutyManager.InInstance) // && Core.Me.CurrentHealthPercent <= 0)
-				{
-					if (DirectorManager.ActiveDirector != null) //director isn't null
-					{	
-						//Checks Duty State
-						var activeAsInstance = (ff14bot.Directors.InstanceContentDirector) DirectorManager.ActiveDirector;
-						if (activeAsInstance.InstanceEnded) //Duty ended
-						{
+			{
+				if (DirectorManager.ActiveDirector != null) //director isn't null
+				{	
+					//Checks Duty State
+					var activeAsInstance = (ff14bot.Directors.InstanceContentDirector) DirectorManager.ActiveDirector;
+					if (activeAsInstance.InstanceEnded) //Duty ended
+					{
 							
-							if (Core.Me.CurrentHealthPercent <= 0)
+						if (Core.Me.CurrentHealthPercent <= 0)
+						{
+							await Coroutine.Sleep(500);
+							//Checks Dead State and Revives
+							await Coroutine.Wait(3000, () => ClientGameUiRevive.ReviveState == ReviveState.Dead);
+							Logging.Write(Colors.Aquamarine, "No one is in combat, releasing...");
+							await Coroutine.Sleep(500);
+							if(ReviveRaid())
 							{
-								await Coroutine.Sleep(500);
-								//Checks Dead State and Revives
-								await Coroutine.Wait(3000, () => ClientGameUiRevive.ReviveState == ReviveState.Dead);
-								Logging.Write(Colors.Aquamarine, "No one is in combat, releasing...");
-								await Coroutine.Sleep(500);
-								if(ReviveRaid())
-								{
-									SelectYesno.ClickYes();
-								}
-								else if(ReviveDungeon())
-								{
-									ff14bot.RemoteWindows.NotificationRevive.Click();
-								}
-								else
-								{
-									ff14bot.RemoteWindows.SelectOk.ClickOk();
-								}
-								while (CommonBehaviors.IsLoading)
-								{
-									Logging.Write(Colors.Aquamarine, "Waiting for zoning to finish...");
-									await Coroutine.Wait(-1, () => (!CommonBehaviors.IsLoading));
-								}
+								SelectYesno.ClickYes();
+							}
+							else if(ReviveDungeon())
+							{
+								ff14bot.RemoteWindows.NotificationRevive.Click();
+							}
+							else
+							{
+								ff14bot.RemoteWindows.SelectOk.ClickOk();
+							}
+							while (CommonBehaviors.IsLoading)
+							{
+								Logging.Write(Colors.Aquamarine, "Waiting for zoning to finish...");
+								await Coroutine.Wait(-1, () => (!CommonBehaviors.IsLoading));
+							}
 
-								while (!Core.Me.IsAlive)
-								{
-									Logging.Write(Colors.Aquamarine, "Zoning finsihed, waiting to become alive...");
-									await Coroutine.Wait(-1, () => (Core.Me.IsAlive));
-								}
+							while (!Core.Me.IsAlive)
+							{
+								Logging.Write(Colors.Aquamarine, "Zoning finsihed, waiting to become alive...");
+								await Coroutine.Wait(-1, () => (Core.Me.IsAlive));
+							}
 								
-							}
+						}
 
-							if (WorldManager.ZoneId != 172)
+						if (WorldManager.ZoneId != 172)
+						{
+							//Testing Necessity of this aspect with orderbot with the revive)
+							Logging.Write(Colors.Aquamarine, "Instance Complete");
+							await Coroutine.Sleep(10000);
+							Logging.Write(Colors.Aquamarine, "Leaving Duty");
+							ff14bot.Managers.DutyManager.LeaveActiveDuty();
+							Logging.Write(Colors.Aquamarine, "Waiting for Zoning");
+							await Coroutine.Wait(22000, () => CommonBehaviors.IsLoading);
+							if (CommonBehaviors.IsLoading)
 							{
-								//Testing Necessity of this aspect with orderbot with the revive)
-								Logging.Write(Colors.Aquamarine, "Instance Complete");
-								await Coroutine.Sleep(10000);
-								Logging.Write(Colors.Aquamarine, "Leaving Duty");
-								ff14bot.Managers.DutyManager.LeaveActiveDuty();
-								Logging.Write(Colors.Aquamarine, "Waiting for Zoning");
-								await Coroutine.Wait(22000, () => CommonBehaviors.IsLoading);
-								if (CommonBehaviors.IsLoading)
-								{
-									await Coroutine.Wait(-1, () => !CommonBehaviors.IsLoading);
-								}
-
-								Logging.Write(Colors.Aquamarine, "Reloading Profile");
-								NeoProfileManager.Load(NeoProfileManager.CurrentProfile.Path, true);
-								NeoProfileManager.UpdateCurrentProfileBehavior();
+								await Coroutine.Wait(-1, () => !CommonBehaviors.IsLoading);
 							}
+
+							Logging.Write(Colors.Aquamarine, "Reloading Profile");
+							NeoProfileManager.Load(NeoProfileManager.CurrentProfile.Path, true);
+							NeoProfileManager.UpdateCurrentProfileBehavior();
 						}
 					}
 				}
+			}
             //if (!Core.Player.HasAura(_buff)) { await EatFood(); }
 			
             switch (WorldManager.ZoneId)
@@ -234,6 +239,9 @@ namespace DungeonAssist
 				case 851: //80本 国际服 5.1
                     if (await PlayerCheck())  {  return true; }
                     return await EdensGateInundationLevi.Run();
+                case 1043: //80本 国际服 5.1
+	                if (await PlayerCheck())  {  return true; }
+	                return await CastrumMeridianum.Run();				
                 default:
                     if (await PlayerCheck())  {  return true; }
                     return await SyrcusTower.Run();

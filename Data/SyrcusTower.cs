@@ -55,7 +55,7 @@ namespace DungeonAssist
 							MovementManager.MoveStop();
 						}
 					}
-				//await Coroutine.Sleep(1000);
+					//await Coroutine.Sleep(1000);
                     await Coroutine.Yield();
                 }
                 sw.Stop();
@@ -133,8 +133,8 @@ namespace DungeonAssist
 						await Coroutine.Sleep(100);
 						MovementManager.MoveStop();
 					}
-				//await Coroutine.Sleep(1000);
-                    await Coroutine.Yield();; }
+					//await Coroutine.Sleep(1000);
+					await Coroutine.Yield();; }
 
             /// SideStep (回避)
             //if (WorldManager.SubZoneId != 2996) { Helpers.BossIds.ToggleSideStep(new uint[] { 8210 }); } else { Helpers.BossIds.ToggleSideStep(); }
