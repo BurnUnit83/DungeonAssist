@@ -51,7 +51,7 @@ namespace DungeonAssist
 		//Todo
 		
 
-        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851, 1043, 1046 }, WorldManager.ZoneId) >= 0;
+        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851, 1043, 1046, 1048 }, WorldManager.ZoneId) >= 0;
 		private bool TurnOffSideStep() => Array.IndexOf(new int[] { 851, 1111 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveRaid() => Array.IndexOf(new int[] { 372, 742, 851 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveDungeon() => Array.IndexOf(new int[] { 111, 1111 }, WorldManager.ZoneId) >= 0;
@@ -249,7 +249,10 @@ namespace DungeonAssist
 	                return await CastrumMeridianum.Run();		
                 case 1046: //80本 国际服 5.1
 	                if (await PlayerCheck())  {  return true; }
-	                return await TheNavel.Run();	
+	                return await TheNavel.Run();
+                case 1048: //80本 国际服 5.1
+	                if (await PlayerCheck())  {  return true; }
+	                return await ThePortaDecumana.Run();
                 default:
                     if (await PlayerCheck())  {  return true; }
                     return await SyrcusTower.Run();

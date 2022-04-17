@@ -45,9 +45,8 @@ namespace DungeonAssist
             11331, // Scion Lancer 
             11332, // Scion Thaumaturge 
             11333, // Scion Conjurer 
-            
-            
-			11337, //Serpent Conjurer 	LVL 50 Castrum
+
+            11337, //Serpent Conjurer 	LVL 50 Castrum
 			11334, //Storm Marauder		LVL 50 Castrum
 			11335, //Flame Thamaturge	LVL 50 Castrum
 			11336, //Flame Thamaturge	LVL 50 Castrum
