@@ -66,9 +66,8 @@ namespace DungeonAssist
         /// <inheritdoc/>
         public static async Task<bool> Run()
         {
-            await Coroutine.Yield();   
-            
-            if (!STsw.IsRunning)
+
+	        if (!STsw.IsRunning)
 	            STsw.Restart();
 
             if (Spells.IsCasting())
@@ -78,12 +77,13 @@ namespace DungeonAssist
                 await MovementHelpers.GetClosestAlly.Follow();
             }
             
-            if (STsw.ElapsedMilliseconds > 500)
+            if (STsw.ElapsedMilliseconds > 2000)
             {
 	            STsw.Reset();
 	            sidestepPlugin.Enabled = true;
             }
             
+            await Coroutine.Yield();
             return false;
 
         }

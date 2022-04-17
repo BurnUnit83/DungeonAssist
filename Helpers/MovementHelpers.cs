@@ -40,6 +40,13 @@ namespace DungeonAssist
             10898, // Emet-Selch
             10899, // Hythlodaeus
 			
+            // The Navel - Duty Support
+            11330, // Scion Marauder 
+            11331, // Scion Lancer 
+            11332, // Scion Thaumaturge 
+            11333, // Scion Conjurer 
+            
+            
 			11337, //Serpent Conjurer 	LVL 50 Castrum
 			11334, //Storm Marauder		LVL 50 Castrum
 			11335, //Flame Thamaturge	LVL 50 Castrum
@@ -54,28 +61,20 @@ namespace DungeonAssist
          public static readonly HashSet<uint> AllPartyDpsIds = new HashSet<uint>()
         {
             729,  // Y'shtola       :: 雅·修特拉
-            //1492, // Urianger       :: 于里昂热
-            //4130, // Alphinaud      :: 阿尔菲诺
             5239, // Alisaie        :: 阿莉塞
             8378, // Y'shtola       :: 雅·修特拉
             8889, // Ryne           :: 琳
             8917, // Minfilia       :: 敏菲利亚
             8919, // Lyna           :: 莱楠
-            //11264, // Alphinaud's avatar
             11265, // Alisaie's avatar
-            //11267, // Urianger's avatar
             11268, // Y'shtola's avatar
             11269, // Ryne's avatar
             11270, // Estinien's avatar
-            //10586, // Venat
-            //10587, // Venat's Phantom
-            //10898, // Emet-Selch
-            //10899, // Hythlodaeus
 
-            //713,  // Thancred       :: 桑克瑞德
-            //8650, // Crystal Exarch :: 水晶公
-            //11266, // Thancred's avatar
-            //11271, // G'raha Tia's avatar
+            
+            11331, // Scion Lancer Level 30 The Navel
+            11332, // Scion Thaumaturge Level 30 The Navel
+            
 			11335, //Flame Thamaturge	LVL 50 Castrum
 			11336, //Flame Thamaturge LVL 50 Castrum
         };
@@ -86,6 +85,7 @@ namespace DungeonAssist
             8650, // Crystal Exarch :: 水晶公
             11266, // Thancred's avatar
             11271, // G'raha Tia's avatar
+            11330, // Scion Marauder Level 30 The Navel
 			11334, //Storm Marauder		LVL 50 Castrum
         };
 
@@ -114,6 +114,12 @@ namespace DungeonAssist
             8650, // Crystal Exarch :: 水晶公
             11266, // Thancred's avatar
             11271, // G'raha Tia's avatar
+            
+            // The Navel - Duty Support
+            11330, // Scion Marauder 
+            11331, // Scion Lancer 
+            11332, // Scion Thaumaturge 
+            11333, // Scion Conjurer 
 			
 			11337, //Serpent Conjurer 	LVL 50 Castrum
 			11334, //Storm Marauder		LVL 50 Castrum
@@ -173,9 +179,9 @@ namespace DungeonAssist
                 }
                
             if (!AvoidanceManager.IsRunningOutOfAvoid)
-                            {
-                                MovementManager.MoveStop();
-                            }
+            {
+                MovementManager.MoveStop();
+            }
 
             return true;
         }

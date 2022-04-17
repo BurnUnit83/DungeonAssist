@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using ff14bot.Navigation;
 using TreeSharp;
 
 namespace DungeonAssist
@@ -50,7 +51,7 @@ namespace DungeonAssist
 		//Todo
 		
 
-        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851, 1043 }, WorldManager.ZoneId) >= 0;
+        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851, 1043, 1046 }, WorldManager.ZoneId) >= 0;
 		private bool TurnOffSideStep() => Array.IndexOf(new int[] { 851, 1111 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveRaid() => Array.IndexOf(new int[] { 372, 742, 851 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveDungeon() => Array.IndexOf(new int[] { 111, 1111 }, WorldManager.ZoneId) >= 0;
@@ -169,6 +170,8 @@ namespace DungeonAssist
 					if (activeAsInstance.InstanceEnded) //Duty ended
 					{
 							
+
+
 						if (Core.Me.CurrentHealthPercent <= 0)
 						{
 							await Coroutine.Sleep(500);
@@ -201,8 +204,8 @@ namespace DungeonAssist
 							}
 								
 						}
-
-						if (WorldManager.ZoneId != 172)
+						/*
+						if (WorldManager.ZoneId != 172 && WorldManager.ZoneId != 372)
 						{
 							//Testing Necessity of this aspect with orderbot with the revive)
 							Logging.Write(Colors.Aquamarine, "Instance Complete");
@@ -218,8 +221,10 @@ namespace DungeonAssist
 
 							Logging.Write(Colors.Aquamarine, "Reloading Profile");
 							NeoProfileManager.Load(NeoProfileManager.CurrentProfile.Path, true);
-							NeoProfileManager.UpdateCurrentProfileBehavior();
+							NeoProfileManager.UpdateCurrentProfileBehavior(); 
+							
 						}
+						*/
 					}
 				}
 			}
@@ -241,7 +246,10 @@ namespace DungeonAssist
                     return await EdensGateInundationLevi.Run();
                 case 1043: //80本 国际服 5.1
 	                if (await PlayerCheck())  {  return true; }
-	                return await CastrumMeridianum.Run();				
+	                return await CastrumMeridianum.Run();		
+                case 1046: //80本 国际服 5.1
+	                if (await PlayerCheck())  {  return true; }
+	                return await TheNavel.Run();	
                 default:
                     if (await PlayerCheck())  {  return true; }
                     return await SyrcusTower.Run();
