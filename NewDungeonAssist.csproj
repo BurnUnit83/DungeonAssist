@@ -58,6 +58,7 @@
         <Compile Include="Data\EdensGateInundationLevi.cs" />
         <Compile Include="Data\HellsLid.cs" />
         <Compile Include="Data\SyrcusTower.cs" />
+        <Compile Include="Data\ThePraetorium.cs" />
         <Compile Include="Data\TheNavel.cs" />
         <Compile Include="Data\ThePortaDecumana.cs" />
         <Compile Include="DungeonAssist.cs" />

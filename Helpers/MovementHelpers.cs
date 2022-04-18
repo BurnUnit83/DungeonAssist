@@ -21,7 +21,7 @@ namespace DungeonAssist
     {
         public static readonly HashSet<uint> PartyMemberIds = new HashSet<uint>()
         {
-            729,  // Y'shtola       :: 雅·修特拉
+            729, // Y'shtola       :: 雅·修特拉
             1492, // Urianger       :: 于里昂热
             4130, // Alphinaud      :: 阿尔菲诺
             5239, // Alisaie        :: 阿莉塞
@@ -39,17 +39,18 @@ namespace DungeonAssist
             10587, // Venat's Phantom
             10898, // Emet-Selch
             10899, // Hythlodaeus
-			
+
             // The Navel - Duty Support
             11330, // Scion Marauder 
             11331, // Scion Lancer 
             11332, // Scion Thaumaturge 
             11333, // Scion Conjurer 
 
-            11337, //Serpent Conjurer 	LVL 50 Castrum
-			11334, //Storm Marauder		LVL 50 Castrum
-			11335, //Flame Thamaturge	LVL 50 Castrum
-			11336, //Flame Thamaturge	LVL 50 Castrum
+            // Castrum Meridianum/The Praetorium - Duty Support 
+            11337, //Serpent Conjurer 	
+            11334, //Storm Marauder		
+            11335, //Flame Thamaturge	
+            11336, //Flame Thamaturge	
 
             // 713,  // Thancred       :: 桑克瑞德
             // 8650, // Crystal Exarch :: 水晶公
@@ -57,9 +58,9 @@ namespace DungeonAssist
             // 11271, // G'raha Tia's avatar
         };
 
-         public static readonly HashSet<uint> AllPartyDpsIds = new HashSet<uint>()
+        public static readonly HashSet<uint> AllPartyDpsIds = new HashSet<uint>()
         {
-            729,  // Y'shtola       :: 雅·修特拉
+            729, // Y'shtola       :: 雅·修特拉
             5239, // Alisaie        :: 阿莉塞
             8378, // Y'shtola       :: 雅·修特拉
             8889, // Ryne           :: 琳
@@ -70,27 +71,27 @@ namespace DungeonAssist
             11269, // Ryne's avatar
             11270, // Estinien's avatar
 
-            
+
             11331, // Scion Lancer Level 30 The Navel
             11332, // Scion Thaumaturge Level 30 The Navel
-            
-			11335, //Flame Thamaturge	LVL 50 Castrum
-			11336, //Flame Thamaturge LVL 50 Castrum
+
+            11335, //Flame Thamaturge	LVL 50 Castrum
+            11336, //Flame Thamaturge LVL 50 Castrum
         };
 
         public static readonly HashSet<uint> AllPartyTankIds = new HashSet<uint>()
         {
-            713,  // Thancred       :: 桑克瑞德
+            713, // Thancred       :: 桑克瑞德
             8650, // Crystal Exarch :: 水晶公
             11266, // Thancred's avatar
             11271, // G'raha Tia's avatar
             11330, // Scion Marauder Level 30 The Navel
-			11334, //Storm Marauder		LVL 50 Castrum
+            11334, //Storm Marauder		LVL 50 Castrum
         };
 
         public static readonly HashSet<uint> AllPartyMemberIds = new HashSet<uint>()
         {
-            729,  // Y'shtola       :: 雅·修特拉
+            729, // Y'shtola       :: 雅·修特拉
             1492, // Urianger       :: 于里昂热
             4130, // Alphinaud      :: 阿尔菲诺
             5239, // Alisaie        :: 阿莉塞
@@ -109,21 +110,21 @@ namespace DungeonAssist
             10898, // Emet-Selch
             10899, // Hythlodaeus
 
-            713,  // Thancred       :: 桑克瑞德
+            713, // Thancred       :: 桑克瑞德
             8650, // Crystal Exarch :: 水晶公
             11266, // Thancred's avatar
             11271, // G'raha Tia's avatar
-            
+
             // The Navel - Duty Support
             11330, // Scion Marauder 
             11331, // Scion Lancer 
             11332, // Scion Thaumaturge 
             11333, // Scion Conjurer 
-			
-			11337, //Serpent Conjurer 	LVL 50 Castrum
-			11334, //Storm Marauder		LVL 50 Castrum
-			11335, //Flame Thamaturge	LVL 50 Castrum
-			11336, //Flame Thamaturge	LVL 50 Castrum
+
+            11337, //Serpent Conjurer 	LVL 50 Castrum
+            11334, //Storm Marauder		LVL 50 Castrum
+            11335, //Flame Thamaturge	LVL 50 Castrum
+            11336, //Flame Thamaturge	LVL 50 Castrum
         };
 
         /// <summary>
@@ -147,12 +148,14 @@ namespace DungeonAssist
         /// <summary>
         /// Gets the furthest Ally from the Player.
         /// </summary>
-        public static BattleCharacter GetFurthestAlly => GameObjectManager.GetObjectsOfType<BattleCharacter>(true, false)
+        public static BattleCharacter GetFurthestAlly => GameObjectManager
+            .GetObjectsOfType<BattleCharacter>(true, false)
             .Where(obj => !obj.IsDead && PartyMemberIds.Contains(obj.NpcId))
             .OrderByDescending(r => r.Distance())
-            .FirstOrDefault();     
+            .FirstOrDefault();
 
-        public static async Task<bool> Spread(double TimeToSpread, float spreadDistance = 6.5f, bool IsSpreading = false)
+        public static async Task<bool> Spread(double TimeToSpread, float spreadDistance = 6.5f,
+            bool IsSpreading = false)
         {
             if (IsSpreading)
             {
@@ -166,17 +169,17 @@ namespace DungeonAssist
             //    { 
             //        sidestepPlugin.Enabled = true;
             //    }
-                        
+
             foreach (var npc in GameObjectManager.GetObjectsOfType<BattleCharacter>(true, false)
-                                .Where(obj => AllPartyMemberIds.Contains(obj.NpcId)))
-                {
-                    AvoidanceManager.AddAvoidObject<BattleCharacter>(
-                        () => DateTime.Now.TimeOfDay.TotalMilliseconds <= EndMS,
-                        radius: spreadDistance,
-                        npc.ObjectId);
-                    await Coroutine.Yield();
-                }
-               
+                         .Where(obj => AllPartyMemberIds.Contains(obj.NpcId)))
+            {
+                AvoidanceManager.AddAvoidObject<BattleCharacter>(
+                    () => DateTime.Now.TimeOfDay.TotalMilliseconds <= EndMS,
+                    radius: spreadDistance,
+                    npc.ObjectId);
+                await Coroutine.Yield();
+            }
+
             if (!AvoidanceManager.IsRunningOutOfAvoid)
             {
                 MovementManager.MoveStop();
@@ -184,9 +187,5 @@ namespace DungeonAssist
 
             return true;
         }
-
-
     }
-
-   
 }
