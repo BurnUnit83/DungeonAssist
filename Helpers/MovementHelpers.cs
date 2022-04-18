@@ -41,6 +41,7 @@ namespace DungeonAssist
             10899, // Hythlodaeus
 
             // The Navel - Duty Support
+            // The Stone Vigil - Duty Support
             11330, // Scion Marauder 
             11331, // Scion Lancer 
             11332, // Scion Thaumaturge 

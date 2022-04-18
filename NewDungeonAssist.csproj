@@ -61,6 +61,7 @@
         <Compile Include="Data\ThePraetorium.cs" />
         <Compile Include="Data\TheNavel.cs" />
         <Compile Include="Data\ThePortaDecumana.cs" />
+        <Compile Include="Data\TheStoneVigil.cs" />
         <Compile Include="DungeonAssist.cs" />
         <Compile Include="DungeonSettings.cs" />
         <Compile Include="DungeonSettings.Designer.cs" />

@@ -51,7 +51,7 @@ namespace DungeonAssist
 		//Todo
 		
 
-        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851, 1043, 1044, 1046, 1048 }, WorldManager.ZoneId) >= 0;
+        private bool CanDungeonAssist() => Array.IndexOf(new int[] { 102, 172, 372, 444, 742, 851, 1042, 1043, 1044, 1046, 1048 }, WorldManager.ZoneId) >= 0;
 		private bool TurnOffSideStep() => Array.IndexOf(new int[] { 851, 1111 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveRaid() => Array.IndexOf(new int[] { 372, 742, 851 }, WorldManager.ZoneId) >= 0;
 		private bool ReviveDungeon() => Array.IndexOf(new int[] { 111, 1111 }, WorldManager.ZoneId) >= 0;
@@ -244,6 +244,9 @@ namespace DungeonAssist
 				case 851: //80本 国际服 5.1
                     if (await PlayerCheck())  {  return true; }
                     return await EdensGateInundationLevi.Run();
+                case 1042: //80本 国际服 5.1
+	                if (await PlayerCheck())  {  return true; }
+	                return await TheStoneVigil.Run();				
                 case 1043: //80本 国际服 5.1
 	                if (await PlayerCheck())  {  return true; }
 	                return await CastrumMeridianum.Run();
