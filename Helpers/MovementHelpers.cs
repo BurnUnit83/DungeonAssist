@@ -21,11 +21,14 @@ namespace DungeonAssist
     {
         public static readonly HashSet<uint> PartyMemberIds = new HashSet<uint>()
         {
+            
+            
             729, // Y'shtola       :: 雅·修特拉
             1492, // Urianger       :: 于里昂热
             4130, // Alphinaud      :: 阿尔菲诺
             5239, // Alisaie        :: 阿莉塞
             8378, // Y'shtola       :: 雅·修特拉
+            8650, // Crystal Exarch
             8889, // Ryne           :: 琳
             8917, // Minfilia       :: 敏菲利亚
             8919, // Lyna           :: 莱楠

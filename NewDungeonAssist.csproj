@@ -53,10 +53,13 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Data\AlaMhigo.cs" />
         <Compile Include="Data\AurumVale.cs" />
         <Compile Include="Data\CastrumMeridianum.cs" />
+        <Compile Include="Data\DohnMheg.cs" />
         <Compile Include="Data\EdensGateInundationLevi.cs" />
         <Compile Include="Data\HellsLid.cs" />
+        <Compile Include="Data\HolminsterSwitch.cs" />
         <Compile Include="Data\SyrcusTower.cs" />
         <Compile Include="Data\ThePraetorium.cs" />
         <Compile Include="Data\TheNavel.cs" />
