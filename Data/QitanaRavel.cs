@@ -48,14 +48,26 @@ namespace DungeonAssist
             // Imp Choir
             13552,
             // Finale
-            13520, 13844, 15723
+            13520, 13844, 15723,
+            
+            15521,15522,15523,15524,15525,15526,15527,
+                15725, 15500
         };
 
         public static async Task<bool> Run()
         {
+
+            IEnumerable<BattleCharacter> lozatl = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
+                r => !r.IsMe && r.Distance() < 50 && r.NpcId == 8231);  // Lozatl
+            IEnumerable<BattleCharacter> batsquatch = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
+                r => !r.IsMe && r.Distance() < 50 && r.NpcId == 8232);  // Batsquatch
+            IEnumerable<BattleCharacter> eros = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
+                r => !r.IsMe && r.Distance() < 50 && r.NpcId == 8233);  // Eros
+            
             // Lozatl 8231
-            if (GameObjectManager.GetObjectByNPCId(8231) != null)
+            if (lozatl.Any())
             {
+
                 HashSet<uint> HeatUp = new HashSet<uint>() { 15502, 15501 };
                 if (HeatUp.IsCasting())
                 {
@@ -79,11 +91,20 @@ namespace DungeonAssist
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
                     await MovementHelpers.GetClosestDps.Follow();
                 }
+                
+                HashSet<uint> RonkanLight = new HashSet<uint>() { 15725, 15500 };
+                if (RonkanLight.IsCasting())
+                {
+                    //sidestepPlugin.Enabled = false;
+                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
+                    await MovementHelpers.GetClosestDps.Follow();
+                }
             }
 
             // Batsquatch 8232
-            if (GameObjectManager.GetObjectByNPCId(8232) != null)
+            if (batsquatch.Any())
             {
+
                 HashSet<uint> Soundwave = new HashSet<uint>() { 15506 };
                 if (Soundwave.IsCasting())
                 {
@@ -92,42 +113,19 @@ namespace DungeonAssist
                     await MovementHelpers.GetClosestDps.Follow();
                 }            
             }
-
-            // Aenc Thon, Lord of the Lengthsome Gait 8146
-            if (GameObjectManager.GetObjectByNPCId(8146) != null)
+            
+            // Eros 8233
+            if (eros.Any())
             {
-                HashSet<uint> ImpChoir = new HashSet<uint>() {13552};
-                if (ImpChoir.IsCasting())
+
+                HashSet<uint> ConfessionofFaith = new HashSet<uint>() { 15521,15522,15523,15524,15525,15526,15527 };
+                if (ConfessionofFaith.IsCasting())
                 {
-                    //sidestepPlugin.Enabled = false;
+                    sidestepPlugin.Enabled = false;
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
                     await MovementHelpers.GetClosestDps.Follow();
-                }
-
-                HashSet<uint> ToadChoir = new HashSet<uint>() {13551};
-                if (ToadChoir.IsCasting())
-                {
-                    //sidestepPlugin.Enabled = false;
-                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
-                    await MovementHelpers.GetClosestDps.Follow();
-                }
-
-                HashSet<uint> Finale = new HashSet<uint>() {13520, 13844, 15723};
-                if (Finale.IsCasting())
-                {
-                    //sidestepPlugin.Enabled = false;
-                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
-                    await MovementHelpers.GetClosestDps.Follow();
-                }
-
-                HashSet<uint> Corrosivebile = new HashSet<uint>() {13520, 13844, 15723};
-                if (Corrosivebile.IsCasting())
-                {
-                    // sidestepPlugin.Enabled = false;
-                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
-                    await MovementHelpers.GetClosestDps.Follow();
-                }
-
+                }      
+                
                 if (!Spells.IsCasting())
                 {
                     if (!sidestepPlugin.Enabled)

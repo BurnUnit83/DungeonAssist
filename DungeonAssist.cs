@@ -273,98 +273,97 @@ namespace DungeonAssist
                     {
                         return true;
                     }
-
                     return await AurumVale.Run();
+                
                 case 372: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await SyrcusTower.Run();
+                
                 case 689: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await AlaMhigo.Run();
+                
                 case 742: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await HellsLid.Run();
-                case 821: //80本 国际服 5.1
+                
+                case 821:
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-                    
-                    return await QitanaRavel.Run();
-                case 823: //80本 国际服 5.1
-                    if (await PlayerCheck())
-                    {
-                        return true;
-                    }
-
                     return await DohnMheg.Run();
+                
+                case 823: 
+                    if (await PlayerCheck())
+                    {
+                        return true;
+                    }
+                    return await QitanaRavel.Run();
+                
                 case 837: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await HolminsterSwitch.Run();
+                
                 case 851: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await EdensGateInundationLevi.Run();
+                
                 case 1042: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await TheStoneVigil.Run();
+                
                 case 1043: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await CastrumMeridianum.Run();
+                
                 case 1044: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await ThePraetorium.Run();
+                
                 case 1046: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await TheNavel.Run();
+                
                 case 1048: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await ThePortaDecumana.Run();
+                
                 default:
                     if (await PlayerCheck())
                     {
                         return true;
                     }
-
                     return await SyrcusTower.Run();
             }
         }

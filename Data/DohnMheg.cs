@@ -117,9 +117,20 @@ namespace DungeonAssist
                 HashSet<uint> Finale = new HashSet<uint>() {13520, 13844, 15723};
                 if (Finale.IsCasting())
                 {
-                    //sidestepPlugin.Enabled = false;
-                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
-                    await MovementHelpers.GetClosestDps.Follow();
+                    Vector3[] navPoints =
+                    {
+                        new Vector3(-128.5326f, -144.5212f, -228.8046f),
+                    };
+
+                    foreach (var pos in navPoints)
+                    {
+                        while (Core.Me.Location.Distance2D(pos) > 1.5f)
+                        {
+                            await Coroutine.Yield();
+                            Navigator.PlayerMover.MoveTowards(pos);
+                        }
+                    }
+                    Navigator.PlayerMover.MoveStop();
                 }
 
                 HashSet<uint> Corrosivebile = new HashSet<uint>() {13520, 13844, 15723};

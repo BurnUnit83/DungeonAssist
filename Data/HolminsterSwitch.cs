@@ -118,7 +118,7 @@ namespace DungeonAssist
                     await MovementHelpers.GetClosestDps.Follow();
                 }
                 
-                HashSet<uint> IntotheLight = new HashSet<uint>() { 15847 };
+                HashSet<uint> IntotheLight = new HashSet<uint>() { 15847, 17232 };
                 if (IntotheLight.IsCasting())
                 {
                     sidestepPlugin.Enabled = false;
@@ -129,7 +129,7 @@ namespace DungeonAssist
                 HashSet<uint> Pendulum = new HashSet<uint>() { 15833, 16777, 16790 };
                 if (Pendulum.IsCasting())
                 {
-                    // sidestepPlugin.Enabled = false;
+                    sidestepPlugin.Enabled = false;
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
                     await MovementHelpers.GetClosestDps.Follow();
                 }
