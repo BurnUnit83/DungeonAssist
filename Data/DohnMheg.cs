@@ -48,7 +48,9 @@ namespace DungeonAssist
             // Imp Choir
             13552,
             // Finale
-            13520, 13844, 15723
+            13520, 13844, 15723,
+            // Corrosive Bile
+            13547, 13548
         };
 
         public static async Task<bool> Run()
@@ -73,6 +75,7 @@ namespace DungeonAssist
             }
 
             // Griaule 8143
+            /*
             if (GameObjectManager.GetObjectByNPCId(8143) != null)
             {
                 IEnumerable<BattleCharacter> paintedSapling = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
@@ -93,7 +96,7 @@ namespace DungeonAssist
                     Navigator.PlayerMover.MoveTowards(sapling.Location);
                     await Coroutine.Sleep(50);
                 }               
-            }
+            }*/
 
             // Aenc Thon, Lord of the Lengthsome Gait 8146
             if (GameObjectManager.GetObjectByNPCId(8146) != null)
@@ -117,6 +120,9 @@ namespace DungeonAssist
                 HashSet<uint> Finale = new HashSet<uint>() {13520, 13844, 15723};
                 if (Finale.IsCasting())
                 {
+                    
+                    sidestepPlugin.Enabled = false;
+                    
                     Vector3[] navPoints =
                     {
                         new Vector3(-128.5326f, -144.5212f, -228.8046f),
@@ -133,7 +139,7 @@ namespace DungeonAssist
                     Navigator.PlayerMover.MoveStop();
                 }
 
-                HashSet<uint> Corrosivebile = new HashSet<uint>() {13520, 13844, 15723};
+                HashSet<uint> Corrosivebile = new HashSet<uint>() { 13547, 13548 };
                 if (Corrosivebile.IsCasting())
                 {
                     // sidestepPlugin.Enabled = false;
