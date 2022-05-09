@@ -99,14 +99,24 @@ namespace DungeonAssist
             }*/
 
             // Aenc Thon, Lord of the Lengthsome Gait 8146
+            IEnumerable<BattleCharacter> aencThon2 = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
+                r => !r.IsMe && r.Distance() < 26 && r.NpcId == 8146 && r.CurrentHealthPercent < 100);
+            
             if (GameObjectManager.GetObjectByNPCId(8146) != null)
             {
                 HashSet<uint> ImpChoir = new HashSet<uint>() {13552};
                 if (ImpChoir.IsCasting())
                 {
-                    //sidestepPlugin.Enabled = false;
-                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
-                    await MovementHelpers.GetClosestDps.Follow();
+                    
+                    Vector3 location1 = new Vector3("-128.474,-144.5366,-243.2417");
+                    while (location1.Distance2D(Core.Me.Location) > 1)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location1);
+                        await Coroutine.Sleep(100);
+                    }
+
+                    Navigator.PlayerMover.MoveStop();
+                    await Coroutine.Sleep(3000);
                 }
 
                 HashSet<uint> ToadChoir = new HashSet<uint>() {13551};
@@ -117,79 +127,70 @@ namespace DungeonAssist
                     await MovementHelpers.GetClosestDps.Follow();
                 }
 
+                
+                
                 HashSet<uint> Finale = new HashSet<uint>() {13520, 13844, 15723};
-                if (Finale.IsCasting())
+                if (Finale.IsCasting() && aencThon2.First().Location.Distance2D(Core.Me.Location) >= 10)
                 {
-                    
-                    sidestepPlugin.Enabled = false;
-                    
-                    
-                        BattleCharacter obj = GameObjectManager.GetObjectsOfType<BattleCharacter>(true)
-                            .Where(r =>
-                              r.IsAlive &&
-                              (r.NpcId == 729 || r.NpcId == 8378 || // "雅·修特拉"
-                              r.NpcId == 1492 || // "于里昂热"
-                              r.NpcId == 4130 || // "阿尔菲诺"
-                              r.NpcId == 5239 || // "阿莉塞"
-                              r.NpcId == 8889 || // 琳
-                              r.NpcId == 11264 || // Alphinaud's avatar
-                              r.NpcId == 11265 || // Alisaie's avatar
-                              r.NpcId == 11267 || // Urianger's avatar
-                              r.NpcId == 11268 || // Y'shtola's avatar
-                              r.NpcId == 11269 || // Ryne's avatar
-                              r.NpcId == 11270 || // Estinien's avatar
-                              r.Name == "阿莉塞" ||
-                              r.Name == "琳" ||
-                              r.Name == "水晶公" ||
-                              r.Name == "敏菲利亚" ||
-                              r.Name == "桑克瑞德"))
-                            .OrderBy(r => r.Distance())
-                            .First();
-
-                        // 当距离大于跟随距离 再处理跟随
-                        if (obj.Location.Distance2D(Core.Me.Location) >= 0.2)
-                        {
-                            // 读条中断
-                            if (Core.Me.IsCasting)
-                            {
-                                ActionManager.StopCasting();
-                            }
-
-                            // 选中跟随最近的队友
-                            obj.Target();
-
-                            Logging.Write(Colors.Aquamarine, $"Following {obj.Name} Distance:{obj.Location.Distance2D(Core.Me.Location)}");
-
-                            while (obj.Location.Distance2D(Core.Me.Location) >= 0.2)
-                            {
-                                Navigator.PlayerMover.MoveTowards(obj.Location);
-                                await Coroutine.Sleep(50);
-                            }
-
-                            Navigator.PlayerMover.MoveStop();
-                            await Coroutine.Sleep(50);
-                            return true;
-                        }
-                    
-                    /*
-                    Vector3[] navPoints =
+                    if (Core.Me.IsCasting)
                     {
-                        new Vector3(-128.5326f, -144.5212f, -228.8046f),
-                    };
-
-                    foreach (var pos in navPoints)
-                    {
-                        while (Core.Me.Location.Distance2D(pos) > 1.5f)
-                        {
-                            await Coroutine.Yield();
-                            Navigator.PlayerMover.MoveTowards(pos);
-                        }
+                        ActionManager.StopCasting();
                     }
-                    Navigator.PlayerMover.MoveStop();
-                    await Coroutine.Wait(20000, () => !Finale.IsCasting());*/
+
+                    await Coroutine.Sleep(3000);
+                    Logging.Write(Colors.Aquamarine, $"Minding the gap");
+                    
+                    Vector3 location = new Vector3("-142.8355,-144.5264,-232.6624");
+                    while (location.Distance2D(Core.Me.Location) > 0.2)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location);
+                        await Coroutine.Sleep(30);
+                    }
+
+                    location = new Vector3("-140.8284,-144.5366,-246.1443");
+                    while (location.Distance2D(Core.Me.Location) > 0.2)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location);
+                        await Coroutine.Sleep(30);
+                    }
+
+                    location = new Vector3("-130.1889,-144.5366,-242.384");
+                    while (location.Distance2D(Core.Me.Location) > 0.2)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location);
+                        await Coroutine.Sleep(30);
+                    }
+
+                    location = new Vector3("-114.455,-144.5366,-244.2632");
+                    while (location.Distance2D(Core.Me.Location) > 0.2)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location);
+                        await Coroutine.Sleep(30);
+                    }
+
+                    location = new Vector3("-125.6857,-144.5238,-249.264");
+                    while (location.Distance2D(Core.Me.Location) > 0.2)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location);
+                        await Coroutine.Sleep(30);
+                    }
+
+                    location = new Vector3("-122.5055,-144.5192,-258.3726");
+                    while (location.Distance2D(Core.Me.Location) > 0.2)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location);
+                        await Coroutine.Sleep(30);
+                    }
+
+                    location = new Vector3("-128.1084,-144.5226,-258.0896");
+                    while (location.Distance2D(Core.Me.Location) > 1)
+                    {
+                        Navigator.PlayerMover.MoveTowards(location);
+                        await Coroutine.Sleep(100);
+                    }
                 }
 
-                HashSet<uint> Corrosivebile = new HashSet<uint>() { 13547, 13548 };
+                HashSet<uint> Corrosivebile = new HashSet<uint>() {13547, 13548};
                 if (Corrosivebile.IsCasting())
                 {
                     // sidestepPlugin.Enabled = false;
