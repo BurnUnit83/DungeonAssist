@@ -79,7 +79,7 @@ namespace DungeonAssist
                 HashSet<uint> Exorcise = new HashSet<uint>() { 15826, 15827 };
                 if (Exorcise.IsCasting())
                 {
-                    //sidestepPlugin.Enabled = false;
+                    sidestepPlugin.Enabled = false;
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
                     await MovementHelpers.GetClosestDps.Follow();
                 }
@@ -91,12 +91,18 @@ namespace DungeonAssist
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
                     await MovementHelpers.Spread(10000, 10);
                 }
+
+                if (Core.Me.HasAura(320))
+                {
+                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
+                    await MovementHelpers.GetClosestDps.Follow();
+                }
             } 
             
             // Philia 8301
             if (GameObjectManager.GetObjectByNPCId(8301) != null)
             {
-                HashSet<uint> RightKnout = new HashSet<uint>() { 15845, 17232 };
+                HashSet<uint> RightKnout = new HashSet<uint>() { 15846 };
                 if (RightKnout.IsCasting())
                 {
                     sidestepPlugin.Enabled = false;
@@ -139,9 +145,9 @@ namespace DungeonAssist
                 HashSet<uint> FierceBeating = new HashSet<uint>() { 15834,15835,15836,15837,15838,15839 };
                 if (FierceBeating.IsCasting())
                 {
-                    //sidestepPlugin.Enabled = false;
+                    sidestepPlugin.Enabled = false;
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
-                    await MovementHelpers.Spread(10000, 10);
+                    await MovementHelpers.GetClosestDps.Follow();
                 }
             } 
 
