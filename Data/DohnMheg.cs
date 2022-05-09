@@ -123,6 +123,55 @@ namespace DungeonAssist
                     
                     sidestepPlugin.Enabled = false;
                     
+                    
+                        BattleCharacter obj = GameObjectManager.GetObjectsOfType<BattleCharacter>(true)
+                            .Where(r =>
+                              r.IsAlive &&
+                              (r.NpcId == 729 || r.NpcId == 8378 || // "雅·修特拉"
+                              r.NpcId == 1492 || // "于里昂热"
+                              r.NpcId == 4130 || // "阿尔菲诺"
+                              r.NpcId == 5239 || // "阿莉塞"
+                              r.NpcId == 8889 || // 琳
+                              r.NpcId == 11264 || // Alphinaud's avatar
+                              r.NpcId == 11265 || // Alisaie's avatar
+                              r.NpcId == 11267 || // Urianger's avatar
+                              r.NpcId == 11268 || // Y'shtola's avatar
+                              r.NpcId == 11269 || // Ryne's avatar
+                              r.NpcId == 11270 || // Estinien's avatar
+                              r.Name == "阿莉塞" ||
+                              r.Name == "琳" ||
+                              r.Name == "水晶公" ||
+                              r.Name == "敏菲利亚" ||
+                              r.Name == "桑克瑞德"))
+                            .OrderBy(r => r.Distance())
+                            .First();
+
+                        // 当距离大于跟随距离 再处理跟随
+                        if (obj.Location.Distance2D(Core.Me.Location) >= 0.2)
+                        {
+                            // 读条中断
+                            if (Core.Me.IsCasting)
+                            {
+                                ActionManager.StopCasting();
+                            }
+
+                            // 选中跟随最近的队友
+                            obj.Target();
+
+                            Logging.Write(Colors.Aquamarine, $"Following {obj.Name} Distance:{obj.Location.Distance2D(Core.Me.Location)}");
+
+                            while (obj.Location.Distance2D(Core.Me.Location) >= 0.2)
+                            {
+                                Navigator.PlayerMover.MoveTowards(obj.Location);
+                                await Coroutine.Sleep(50);
+                            }
+
+                            Navigator.PlayerMover.MoveStop();
+                            await Coroutine.Sleep(50);
+                            return true;
+                        }
+                    
+                    /*
                     Vector3[] navPoints =
                     {
                         new Vector3(-128.5326f, -144.5212f, -228.8046f),
@@ -137,6 +186,7 @@ namespace DungeonAssist
                         }
                     }
                     Navigator.PlayerMover.MoveStop();
+                    await Coroutine.Wait(20000, () => !Finale.IsCasting());*/
                 }
 
                 HashSet<uint> Corrosivebile = new HashSet<uint>() { 13547, 13548 };
