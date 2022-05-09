@@ -46,7 +46,9 @@ namespace DungeonAssist
                 // Into the Light   
                     15845, 17232,
                 // Pendulum
-                    15833, 16777, 16790
+                    15833, 16777, 16790,
+                // Fierce Beating
+                    15834,15835,15836,15837,15838,15839
         };
 
         public static async Task<bool> Run()
@@ -128,6 +130,14 @@ namespace DungeonAssist
                 
                 HashSet<uint> Taphephobia = new HashSet<uint>() { 15842, 16769 };
                 if (Taphephobia.IsCasting())
+                {
+                    //sidestepPlugin.Enabled = false;
+                    AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
+                    await MovementHelpers.Spread(10000, 10);
+                }
+                
+                HashSet<uint> FierceBeating = new HashSet<uint>() { 15834,15835,15836,15837,15838,15839 };
+                if (FierceBeating.IsCasting())
                 {
                     //sidestepPlugin.Enabled = false;
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
