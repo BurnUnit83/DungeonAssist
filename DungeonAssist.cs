@@ -58,7 +58,7 @@ namespace DungeonAssist
 
 
         private bool CanDungeonAssist() =>
-            Array.IndexOf(new int[] {102, 172, 372, 444, 689, 742, 821, 823, 837, 851, 1042, 1043, 1044, 1046, 1048},
+            Array.IndexOf(new int[] {102, 172, 372, 444, 689, 742, 821, 823, 836, 837, 851, 1042, 1043, 1044, 1046, 1048},
                 WorldManager.ZoneId) >= 0;
 
         private bool TurnOffSideStep() => Array.IndexOf(new int[] {851, 1111}, WorldManager.ZoneId) >= 0;
@@ -240,27 +240,6 @@ namespace DungeonAssist
                                 await Coroutine.Wait(-1, () => (Core.Me.IsAlive));
                             }
                         }
-                        /*
-                        if (WorldManager.ZoneId != 172 && WorldManager.ZoneId != 372)
-                        {
-                            //Testing Necessity of this aspect with orderbot with the revive)
-                            Logging.Write(Colors.Aquamarine, "Instance Complete");
-                            await Coroutine.Sleep(10000);
-                            Logging.Write(Colors.Aquamarine, "Leaving Duty");
-                            ff14bot.Managers.DutyManager.LeaveActiveDuty();
-                            Logging.Write(Colors.Aquamarine, "Waiting for Zoning");
-                            await Coroutine.Wait(22000, () => CommonBehaviors.IsLoading);
-                            if (CommonBehaviors.IsLoading)
-                            {
-                                await Coroutine.Wait(-1, () => !CommonBehaviors.IsLoading);
-                            }
-
-                            Logging.Write(Colors.Aquamarine, "Reloading Profile");
-                            NeoProfileManager.Load(NeoProfileManager.CurrentProfile.Path, true);
-                            NeoProfileManager.UpdateCurrentProfileBehavior(); 
-                            
-                        }
-                        */
                     }
                 }
             }
@@ -309,6 +288,13 @@ namespace DungeonAssist
                         return true;
                     }
                     return await QitanaRavel.Run();
+                
+                case 836: 
+                    if (await PlayerCheck())
+                    {
+                        return true;
+                    }
+                    return await MalikahsWell.Run();
                 
                 case 837: //80本 国际服 5.1
                     if (await PlayerCheck())
