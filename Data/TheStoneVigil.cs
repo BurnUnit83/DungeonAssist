@@ -47,6 +47,11 @@ namespace DungeonAssist
                     //sidestepPlugin.Enabled = false;
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
                     await MovementHelpers.GetClosestDps.Follow();
+                    await Coroutine.Wait(10000, () => !Swinge.IsCasting());
+                    if (!Swinge.IsCasting())
+                    {
+                        await MovementHelpers.Spread(10000, 10);
+                    }
                 }
             }
 
