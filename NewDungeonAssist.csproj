@@ -59,6 +59,7 @@
         <Compile Include="Data\DohnMheg.cs" />
         <Compile Include="Data\EdensGateInundationLevi.cs" />
         <Compile Include="Data\HallofNovice.cs" />
+        <Compile Include="Data\HallofNoviceDPS.cs" />
         <Compile Include="Data\HellsLid.cs" />
         <Compile Include="Data\HolminsterSwitch.cs" />
         <Compile Include="Data\MalikahsWell.cs" />
