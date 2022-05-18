@@ -128,6 +128,8 @@ namespace DungeonAssist
                 }
 
                 
+
+                
                 
                 HashSet<uint> Finale = new HashSet<uint>() {13520, 13844, 15723};
                 if (Finale.IsCasting() && aencThon2.First().Location.Distance2D(Core.Me.Location) >= 10)
@@ -136,6 +138,7 @@ namespace DungeonAssist
                     {
                         ActionManager.StopCasting();
                     }
+
 
                     await Coroutine.Sleep(3000);
                     Logging.Write(Colors.Aquamarine, $"Minding the gap");

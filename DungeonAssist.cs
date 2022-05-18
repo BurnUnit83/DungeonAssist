@@ -58,7 +58,7 @@ namespace DungeonAssist
 
 
         private bool CanDungeonAssist() =>
-            Array.IndexOf(new int[] {102, 172, 372, 444, 689, 742, 821, 823, 836, 837, 851, 1042, 1043, 1044, 1046, 1048},
+            Array.IndexOf(new int[] {102, 138, 172, 372, 444, 543, 689, 742, 821, 823, 836, 837, 851, 1042, 1043, 1044, 1046, 1048},
                 WorldManager.ZoneId) >= 0;
 
         private bool TurnOffSideStep() => Array.IndexOf(new int[] {851, 1111}, WorldManager.ZoneId) >= 0;
@@ -247,6 +247,13 @@ namespace DungeonAssist
 
             switch (WorldManager.ZoneId)
             {
+                case 138: //80本 国际服 5.1
+                    if (await PlayerCheck())
+                    {
+                        return true;
+                    }
+                    return await HallofNovice.Run();
+                
                 case 172: //80本 国际服 5.1
                     if (await PlayerCheck())
                     {
@@ -260,6 +267,13 @@ namespace DungeonAssist
                         return true;
                     }
                     return await SyrcusTower.Run();
+                
+                case 543: //80本 国际服 5.1
+                    if (await PlayerCheck())
+                    {
+                        return true;
+                    }
+                    return await HallofNovice.Run();
                 
                 case 689: //80本 国际服 5.1
                     if (await PlayerCheck())
