@@ -33,6 +33,7 @@ namespace DungeonAssist
         public static async Task<bool> Run()
         {
 
+
             IEnumerable<BattleCharacter> fisters = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
                 r => !r.IsMe && r.Distance() < 50 && r.NpcId == 4786 && r.IsAlive); // Quick-fisted Training Partner
             IEnumerable<BattleCharacter> tamedJackal = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
@@ -41,7 +42,8 @@ namespace DungeonAssist
             // Quick-fisted Training Partner 4786
             if (fisters.Any())
             {
-                var fistNpc = GameObjectManager.GetObjectsByNPCId<BattleCharacter>(4786).Where(obj => obj.IsVisible && obj.CurrentHealth > 1);
+                var fistNpc = GameObjectManager.GetObjectsByNPCId<BattleCharacter>(4786)
+                    .Where(obj => obj.IsVisible && obj.CurrentHealth > 1);
                 foreach (var fister in fistNpc)
                 {
                     while (fister.TargetGameObject != Core.Me)
@@ -67,27 +69,29 @@ namespace DungeonAssist
                             ActionManager.DoAction(46, fister);
                             await Coroutine.Sleep(1500);
                         }
+
                         if (Core.Me.CurrentJob == ClassJobType.Gladiator || Core.Me.CurrentJob == ClassJobType.Paladin)
                         {
                             Logging.WriteDiagnostic($"Casting Shield Lob.");
                             ActionManager.DoAction(24, fister);
                             await Coroutine.Sleep(1500);
                         }
+
                         if (Core.Me.CurrentJob == ClassJobType.DarkKnight)
                         {
                             Logging.WriteDiagnostic($"Casting Unmend");
                             ActionManager.DoAction(3624, fister);
                             await Coroutine.Sleep(1500);
                         }
-
                     }
                 }
             }
-            
+
             // Tamed Jackal 4787
             if (tamedJackal.Any())
             {
-                var fistNpc = GameObjectManager.GetObjectsByNPCId<BattleCharacter>(4787).Where(obj => obj.IsVisible && obj.CurrentHealth > 1 && obj.IsAlive);
+                var fistNpc = GameObjectManager.GetObjectsByNPCId<BattleCharacter>(4787)
+                    .Where(obj => obj.IsVisible && obj.CurrentHealth > 1 && obj.IsAlive);
                 foreach (var fister in fistNpc)
                 {
                     while (fister.TargetGameObject != Core.Me)
@@ -113,12 +117,14 @@ namespace DungeonAssist
                             ActionManager.DoAction(46, fister);
                             await Coroutine.Sleep(1500);
                         }
+
                         if (Core.Me.CurrentJob == ClassJobType.Gladiator || Core.Me.CurrentJob == ClassJobType.Paladin)
                         {
                             Logging.WriteDiagnostic($"Casting Shield Lob.");
                             ActionManager.DoAction(24, fister);
                             await Coroutine.Sleep(1500);
                         }
+
                         if (Core.Me.CurrentJob == ClassJobType.DarkKnight)
                         {
                             Logging.WriteDiagnostic($"Casting Unmend");
