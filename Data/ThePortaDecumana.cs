@@ -120,17 +120,6 @@ namespace DungeonAssist
                 await MovementHelpers.GetClosestAlly.Follow();    
             }
 
-            if (Core.Me.CurrentHealth == 0)
-            {
-                Logging.WriteDiagnostic($"DungeonAssist cuaght death.");
-                await Coroutine.Wait(-1, () => (Core.Me.IsAlive));
-                Logging.WriteDiagnostic($"We are alive, loading profile...");
-                NeoProfileManager.Load(NeoProfileManager.CurrentProfile.Path);
-                NeoProfileManager.UpdateCurrentProfileBehavior();
-                await Coroutine.Sleep(5000);
-                return true;
-            }
-
             if (!Spells.IsCasting())
             {
                 if (!sidestepPlugin.Enabled)
