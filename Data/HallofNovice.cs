@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using ff14bot.Helpers;
 using System.Windows.Media;
+using ff14bot.Enums;
 using ff14bot.Navigation;
 
 namespace DungeonAssist
@@ -31,6 +32,7 @@ namespace DungeonAssist
 
         public static async Task<bool> Run()
         {
+
             IEnumerable<BattleCharacter> fisters = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
                 r => !r.IsMe && r.Distance() < 50 && r.NpcId == 4786 && r.IsAlive); // Quick-fisted Training Partner
             IEnumerable<BattleCharacter> tamedJackal = GameObjectManager.GetObjectsOfType<BattleCharacter>().Where(
@@ -59,9 +61,25 @@ namespace DungeonAssist
                             Navigator.PlayerMover.MoveStop();
                         }
 
-                        Logging.WriteDiagnostic($"Casting Shield Lob.");
-                        ActionManager.DoAction(24, fister);
-                        await Coroutine.Sleep(1500);
+                        if (Core.Me.CurrentJob == ClassJobType.Marauder || Core.Me.CurrentJob == ClassJobType.Warrior)
+                        {
+                            Logging.WriteDiagnostic($"Casting Tomahawk.");
+                            ActionManager.DoAction(46, fister);
+                            await Coroutine.Sleep(1500);
+                        }
+                        if (Core.Me.CurrentJob == ClassJobType.Gladiator || Core.Me.CurrentJob == ClassJobType.Paladin)
+                        {
+                            Logging.WriteDiagnostic($"Casting Shield Lob.");
+                            ActionManager.DoAction(24, fister);
+                            await Coroutine.Sleep(1500);
+                        }
+                        if (Core.Me.CurrentJob == ClassJobType.DarkKnight)
+                        {
+                            Logging.WriteDiagnostic($"Casting Unmend");
+                            ActionManager.DoAction(3624, fister);
+                            await Coroutine.Sleep(1500);
+                        }
+
                     }
                 }
             }
@@ -89,9 +107,24 @@ namespace DungeonAssist
                             Navigator.PlayerMover.MoveStop();
                         }
 
-                        Logging.WriteDiagnostic($"Casting Shield Lob.");
-                        ActionManager.DoAction(24, fister);
-                        await Coroutine.Sleep(1500);
+                        if (Core.Me.CurrentJob == ClassJobType.Marauder || Core.Me.CurrentJob == ClassJobType.Warrior)
+                        {
+                            Logging.WriteDiagnostic($"Casting Tomahawk.");
+                            ActionManager.DoAction(46, fister);
+                            await Coroutine.Sleep(1500);
+                        }
+                        if (Core.Me.CurrentJob == ClassJobType.Gladiator || Core.Me.CurrentJob == ClassJobType.Paladin)
+                        {
+                            Logging.WriteDiagnostic($"Casting Shield Lob.");
+                            ActionManager.DoAction(24, fister);
+                            await Coroutine.Sleep(1500);
+                        }
+                        if (Core.Me.CurrentJob == ClassJobType.DarkKnight)
+                        {
+                            Logging.WriteDiagnostic($"Casting Unmend");
+                            ActionManager.DoAction(3624, fister);
+                            await Coroutine.Sleep(1500);
+                        }
                     }
                 }
             }
