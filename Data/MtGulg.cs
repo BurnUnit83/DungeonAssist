@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Buddy.Coroutines;
+using ff14bot.Behavior;
 using ff14bot.Managers;
 using ff14bot.Objects;
 
@@ -72,6 +73,7 @@ namespace DungeonAssist
             // Forgiven Whimsy 8261
             if (forgivenWhimsy.Any())
             {
+                
                 sidestepPlugin.Enabled = false;
 
                 HashSet<uint> Exegesis = new HashSet<uint>() {15622, 15623, 16987, 16988, 16989};

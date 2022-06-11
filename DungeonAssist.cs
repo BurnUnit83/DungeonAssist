@@ -191,28 +191,6 @@ namespace DungeonAssist
         private async Task<bool> RunDungeonAssist()
         {
             
-            uint[] questNpcIds = { 2012880,2012881,2012882,2012883 };
-            var npcId = GameObjectManager.GameObjects.Where(r => r.IsTargetable && questNpcIds.Contains(r.NpcId)).OrderBy(r => r.Distance()).FirstOrDefault();
-
-            if (!npcId.IsWithinInteractRange)
-
-            {
-                var _target = npcId.Location;
-                Navigator.PlayerMover.MoveTowards(_target);
-                while (_target.Distance2D(Core.Me.Location) >= 2)
-                {
-                    LlamaLibrary.Helpers.Navigation.FlightorMove(_target);
-                    Navigator.PlayerMover.MoveTowards(_target);
-                    await Coroutine.Sleep(100);
-                }
-                Navigator.PlayerMover.MoveStop();
-            }
-							
-            npcId.Interact();		
-            await Coroutine.Sleep(7000);
-            
-            
-            
             if (!Core.Me.InCombat && ActionManager.IsSprintReady && MovementManager.IsMoving)
             {
                 ActionManager.Sprint();
