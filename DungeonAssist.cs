@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using ff14bot.Navigation;
+using LlamaLibrary.Helpers;
 using TreeSharp;
 
 namespace DungeonAssist
@@ -58,7 +59,7 @@ namespace DungeonAssist
 
 
         private bool CanDungeonAssist() =>
-            Array.IndexOf(new int[] {102, 138, 172, 372, 444, 543, 544, 549, 550, 689, 742, 821, 823, 836, 837, 851, 1042, 1043, 1044, 1046, 1048},
+            Array.IndexOf(new int[] {102, 138, 172, 372, 444, 543, 544, 549, 550, 689, 742, 821, 822, 823, 836, 837, 851, 1042, 1043, 1044, 1046, 1048},
                 WorldManager.ZoneId) >= 0;
 
         private bool TurnOffSideStep() => Array.IndexOf(new int[] {851, 1111}, WorldManager.ZoneId) >= 0;
@@ -150,6 +151,7 @@ namespace DungeonAssist
 
         private void OnBotStop(BotBase bot)
         {
+            
             RemoveHooks();
             if (PluginManager.Plugins.Where(p => p.Plugin.Name == "DungeonAssist" || p.Plugin.Name == "回避").Any())
             {
@@ -188,6 +190,29 @@ namespace DungeonAssist
 
         private async Task<bool> RunDungeonAssist()
         {
+            
+            uint[] questNpcIds = { 2012880,2012881,2012882,2012883 };
+            var npcId = GameObjectManager.GameObjects.Where(r => r.IsTargetable && questNpcIds.Contains(r.NpcId)).OrderBy(r => r.Distance()).FirstOrDefault();
+
+            if (!npcId.IsWithinInteractRange)
+
+            {
+                var _target = npcId.Location;
+                Navigator.PlayerMover.MoveTowards(_target);
+                while (_target.Distance2D(Core.Me.Location) >= 2)
+                {
+                    LlamaLibrary.Helpers.Navigation.FlightorMove(_target);
+                    Navigator.PlayerMover.MoveTowards(_target);
+                    await Coroutine.Sleep(100);
+                }
+                Navigator.PlayerMover.MoveStop();
+            }
+							
+            npcId.Interact();		
+            await Coroutine.Sleep(7000);
+            
+            
+            
             if (!Core.Me.InCombat && ActionManager.IsSprintReady && MovementManager.IsMoving)
             {
                 ActionManager.Sprint();
@@ -316,6 +341,13 @@ namespace DungeonAssist
                         return true;
                     }
                     return await DohnMheg.Run();
+                
+                case 822:
+                    if (await PlayerCheck())
+                    {
+                        return true;
+                    }
+                    return await MtGulg.Run();
                 
                 case 823: 
                     if (await PlayerCheck())

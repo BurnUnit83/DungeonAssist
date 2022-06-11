@@ -64,6 +64,7 @@
         <Compile Include="Data\HellsLid.cs" />
         <Compile Include="Data\HolminsterSwitch.cs" />
         <Compile Include="Data\MalikahsWell.cs" />
+        <Compile Include="Data\MtGulg.cs" />
         <Compile Include="Data\QitanaRavel.cs" />
         <Compile Include="Data\SyrcusTower.cs" />
         <Compile Include="Data\ThePraetorium.cs" />
