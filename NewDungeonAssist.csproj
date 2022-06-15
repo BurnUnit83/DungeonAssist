@@ -67,6 +67,7 @@
         <Compile Include="Data\MtGulg.cs" />
         <Compile Include="Data\QitanaRavel.cs" />
         <Compile Include="Data\SyrcusTower.cs" />
+        <Compile Include="Data\TheHowlingEye.cs" />
         <Compile Include="Data\ThePraetorium.cs" />
         <Compile Include="Data\TheNavel.cs" />
         <Compile Include="Data\ThePortaDecumana.cs" />

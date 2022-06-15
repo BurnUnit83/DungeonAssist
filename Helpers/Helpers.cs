@@ -1,9 +1,23 @@
-﻿using ff14bot;
-using ff14bot.Enums;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Buddy.Coroutines;
+using ff14bot;
 using ff14bot.Managers;
 using ff14bot.Objects;
+using LlamaLibrary.Helpers;
+using Buddy.Coroutines;
+using Clio.Utilities;
+using ff14bot;
+using ff14bot.Behavior;
+using ff14bot.Managers;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Linq;
+using ff14bot.Helpers;
+using System.Windows.Media;
+using ff14bot.Enums;
 
 namespace DungeonAssist
 {
@@ -21,9 +35,21 @@ namespace DungeonAssist
         /// 8919 :: Lyna                     :: 莱楠
         /// <summary>
         /// Gets the nearest Ally to the Player.
-        /// </summary>
+        /// </summary
 
-		public static BattleCharacter GetClosestAlly
+        public static bool IsTankClass()
+        {
+            if (Core.Me.CurrentJob == ClassJobType.Paladin || Core.Me.CurrentJob == ClassJobType.Gladiator 
+                || Core.Me.CurrentJob == ClassJobType.Warrior || Core.Me.CurrentJob == ClassJobType.Marauder
+                || Core.Me.CurrentJob == ClassJobType.DarkKnight || Core.Me.CurrentJob == ClassJobType.Gunbreaker)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static BattleCharacter GetClosestAlly
         {
             get
             {
