@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,12 @@ namespace DungeonAssist
     {
         static PluginContainer sidestepPlugin = PluginHelpers.GetSideStepPlugin();
 
+        private static DateTime SwingeTimestamp = DateTime.MinValue;
+        private static readonly int SwingeDuration = 15_000;
+
+        private static DateTime lionsBreathTimestamp = DateTime.MinValue;
+        private static readonly int lionsBreathDuration = 10_000;
+
         static HashSet<uint> Spells = new HashSet<uint>()
         {
             // Koshchei 1678
@@ -38,20 +45,56 @@ namespace DungeonAssist
 
         public static async Task<bool> Run()
         {
+            GameObject ChudoYudo = GameObjectManager.GetObjectsByNPCId(1677).FirstOrDefault(obj => obj.IsTargetable);
+
             // Chudo-Yudo  1677
             if (GameObjectManager.GetObjectByNPCId(1677) != null)
             {
-                HashSet<uint> Swinge = new HashSet<uint>() {903, 4367, 8906, 3455, 2727, 2295, 11725};
-                if (Swinge.IsCasting())
+                HashSet<uint> Swinge = new HashSet<uint>() {903};
+                if (Swinge.IsCasting() && SwingeTimestamp.AddMilliseconds(SwingeDuration) < DateTime.Now)
+                    
                 {
-                    //sidestepPlugin.Enabled = false;
+                    Vector3 location = ChudoYudo.Location;
+                    uint objectId = ChudoYudo.ObjectId;
+
+                    SwingeTimestamp = DateTime.Now;
+                    Stopwatch SwingeTimer = new Stopwatch();
+                    SwingeTimer.Restart();
+
+                    AvoidanceManager.AddAvoidUnitCone<GameObject>(
+                        canRun: () => SwingeTimer.IsRunning && SwingeTimer.ElapsedMilliseconds < SwingeDuration,
+                        objectSelector: (obj) => obj.ObjectId == objectId,
+                        leashPointProducer: () => location,
+                        leashRadius: 80f,
+                        rotationDegrees: 0f,
+                        radius: 90f,
+                        arcDegrees: 60f);
+                }
+
+                HashSet<uint> lionsBreath = new HashSet<uint>() {902};
+                if (lionsBreath.IsCasting() && lionsBreathTimestamp.AddMilliseconds(lionsBreathDuration) < DateTime.Now)
+                {
+                    Vector3 location = ChudoYudo.Location;
+                    uint objectId = ChudoYudo.ObjectId;
+
+                    lionsBreathTimestamp = DateTime.Now;
+                    Stopwatch lionsBreathTimer = new Stopwatch();
+                    lionsBreathTimer.Restart();
+
+                    AvoidanceManager.AddAvoidUnitCone<GameObject>(
+                        canRun: () =>
+                            lionsBreathTimer.IsRunning && lionsBreathTimer.ElapsedMilliseconds < lionsBreathDuration,
+                        objectSelector: (obj) => obj.ObjectId == objectId,
+                        leashPointProducer: () => location,
+                        leashRadius: 40f,
+                        rotationDegrees: 0f,
+                        radius: 25f,
+                        arcDegrees: 180f);
+                }
+
+                if (!Swinge.IsCasting() && !lionsBreath.IsCasting())
+                {
                     AvoidanceManager.RemoveAllAvoids(i => i.CanRun);
-                    await MovementHelpers.GetClosestDps.Follow();
-                    await Coroutine.Wait(10000, () => !Swinge.IsCasting());
-                    if (!Swinge.IsCasting())
-                    {
-                        await MovementHelpers.Spread(10000, 10);
-                    }
                 }
             }
 
